@@ -1,8 +1,8 @@
-from reachy_sdk import ReachySDK # connection au robot
-from reachy_sdk.trajectory import goto # pour générer des trajectoires
+from reachy_sdk import ReachySDK
+from reachy_sdk.trajectory import goto
 from reachy_sdk.trajectory import InterpolationMode
 import time
-import reachy
+
 
 def happy_antennas():
     for _ in range(7):
@@ -67,35 +67,36 @@ def hello_left_arm():
         interpolation_mode=InterpolationMode.LINEAR
     )
 
+
 def move_head():
-  reachy.head.look_at(0.5, -0.3, -0.1, duration=1.0)
-  time.sleep(0.3)
-  reachy.head.look_at(0.5, 0.3, -0.1, duration=1.0)
-  time.sleep(0.3)
-  reachy.head.look_at(0.5, 0, -0.1, duration=1.0)
-  time.sleep(0.3)
+    reachy.head.look_at(0.5, -0.3, -0.1, duration=1.0)
+    time.sleep(0.3)
+    reachy.head.look_at(0.5, 0.3, -0.1, duration=1.0)
+    time.sleep(0.3)
+    reachy.head.look_at(0.5, 0, -0.1, duration=1.0)
+    time.sleep(0.3)
 
-  head_tilted_position = {
-    reachy.head.neck_roll: -20,
-    reachy.head.neck_pitch: 0,
-    reachy.head.neck_yaw:0,
-  }
+    head_tilted_position = {
+        reachy.head.neck_roll: -20,
+        reachy.head.neck_pitch: 0,
+        reachy.head.neck_yaw: 0,
+    }
 
-  goto(
-    goal_positions = head_tilted_position,
-    duration = 1.0,
-    interpolation_mode = InterpolationMode.MINIMUM_JERK
-  )
+    goto(
+        goal_positions=head_tilted_position,
+        duration=1.0,
+        interpolation_mode=InterpolationMode.MINIMUM_JERK
+    )
+
 
 def say_hello():
-  move_head()
-  happy_antennas()
-  hello_left_arm()
-  reachy.head.look_at(0.5, 0, 0, duration=0.5)
+    move_head()
+    happy_antennas()
+    hello_left_arm()
+    reachy.head.look_at(0.5, 0, 0, duration=0.5)
 
 
 if __name__ == "__main__":
-  reachy = ReachySDK(host='localhost') # replace with correct IP if the simulation is not on your computer
+    reachy = ReachySDK(host='localhost')  # replace with correct IP if the simulation is not on your computer
 
-  say_hello()
-
+    say_hello()
