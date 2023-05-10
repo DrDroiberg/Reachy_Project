@@ -5,6 +5,7 @@ import time
 
 time_movement = 2.5
 
+reachy = ReachySDK(host='localhost')
 
 def dab_arm():
     dab_left_arm_position = {

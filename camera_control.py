@@ -12,5 +12,5 @@ def camera_control():
         img = reachy.right_camera.last_frame
 
         cv.imshow('Left Eye', img)
-        cv.waitKey(0.5)
+        cv.waitKey(500)
         cv.destroyAllWindows()
