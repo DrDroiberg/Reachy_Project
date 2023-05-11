@@ -7,7 +7,7 @@ import os
 
 
 reachy = ReachySDK(host='localhost')
-path = 'C:/Users/vince/PycharmProjects/Reachy_Project/camera_images'
+path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 
 def recognition():
     # img = cv.imread('C:/Users/vince/PycharmProjects/Reachy_Project/camera_images/img_0.jpg')

@@ -7,13 +7,14 @@ import cv2 as cv
 from camera_control import camera_control
 from arm_mouvement import dab
 from hand_recognition import recognition
+from arm_recognition import arm_recognition
 
 reachy = ReachySDK(host='localhost')
 
-print("Begin camera control")
+print("Beginning camera control")
 camera_control()
 print("Camera control done")
 time.sleep(2)
-print("Begin recognition")
-recognition()
+print("Beginning recognition")
+arm_recognition()
 print("Recognition done")
