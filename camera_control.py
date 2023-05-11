@@ -22,4 +22,4 @@ def camera_control():
         img_file.append(img)
 
     # save the image from img_file in a folder
-        cv.imwrite(os.path.join(path, 'img_'+str(i)+'.jpg'), img_file[i])
+        # cv.imwrite(os.path.join(path, 'img_'+str(i)+'.jpg'), img_file[i])
