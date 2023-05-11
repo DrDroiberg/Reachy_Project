@@ -9,14 +9,7 @@ import os
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 reachy = ReachySDK(host='localhost')
-def offset_distance(x1, y1, x2, y2):
-    dist = ((x2 - x1)**2 + (y2 - y1)**2)**0.5
-    return dist
-
-def findAngle(x1, y1, x2, y2):
-    theta = m.acos((x2 - x1) / offset_distance(x1, y1, x2, y2))
-    degree = theta * int(180 / m.pi)
-    return degree
+coordinates = []
 
 def arm_recognition():
     mp_pose = mp.solutions.pose
@@ -57,10 +50,31 @@ def arm_recognition():
         right_wrist_x = int(lm.landmark[lmPose.RIGHT_WRIST].x * body_image.shape[1])
         right_wrist_y = int(lm.landmark[lmPose.RIGHT_WRIST].y * body_image.shape[0])
 
+        # left hip
+        left_hip_x = int(lm.landmark[lmPose.LEFT_HIP].x * body_image.shape[1])
+        left_hip_y = int(lm.landmark[lmPose.LEFT_HIP].y * body_image.shape[0])
+
+        # right hip
+        right_hip_x = int(lm.landmark[lmPose.RIGHT_HIP].x * body_image.shape[1])
+        right_hip_y = int(lm.landmark[lmPose.RIGHT_HIP].y * body_image.shape[0])
+
 
 ##############################################################################################################
-        # Drawing the landmarks
+        # Drawing the landmarks on the images
         mpDraw.draw_landmarks(body_image, lm, mp_pose.POSE_CONNECTIONS)
         cv.imwrite(os.path.join(path, 'body_recognise_'+str(i)+'.jpg'), body_image)
         cv.waitKey(1)
+
+##############################################################################################################
+        # Stocking the coordinates in a list, it's a 3D list
+        coordinates.append([[left_shoulder_x, left_shoulder_y], [right_shoulder_x, right_shoulder_y],
+                        [left_elbow_x, left_elbow_y], [right_elbow_x, right_elbow_y],
+                        [left_wrist_x, left_wrist_y], [right_wrist_x, right_wrist_y],
+                            [left_hip_x, left_hip_y], [right_hip_x, right_hip_y]])
+
+    # Save the coordinates list in a file
+    with open('C:/Users/vince/PycharmProjects/Reachy_Project/coordinates.txt', 'w') as f:
+        for item in coordinates:
+            f.write("%s\n" % item)
+    f.close()
 
