@@ -9,8 +9,8 @@ from arm_mouvement import dab
 
 reachy = ReachySDK(host='localhost')
 
-while True:
-    dab()
-    camera_control()
-    time.sleep(1)
+
+#dab()
+camera_control()
+#time.sleep(1)
 

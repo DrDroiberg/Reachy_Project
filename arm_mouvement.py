@@ -75,12 +75,6 @@ def dab_arm():
 
 
 def head_movement():
-    # reachy.head.look_at(x=0.5, y=-0.3, z=-0.1, duration=1.0)
-    # time.sleep(0.3)
-    # reachy.head.look_at(x=0.5, y=0.3, z=-0.1, duration=1.0)
-    # time.sleep(0.3)
-    # reachy.head.look_at(x=-0.5, y=0.0, z=-0.1, duration=1.0)
-    # time.sleep(0.3)
 
     head_tilted = {
         reachy.head.neck_roll: 20,
