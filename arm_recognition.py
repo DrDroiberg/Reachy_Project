@@ -6,6 +6,7 @@ import cv2 as cv
 import mediapipe as mp
 import math as m
 import os
+import numpy as np
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 reachy = ReachySDK(host='localhost')
@@ -77,4 +78,6 @@ def arm_recognition():
         for item in coordinates:
             f.write("%s\n" % item)
     f.close()
+
+    return coordinates
 

@@ -6,11 +6,20 @@ import cv2 as cv
 import mediapipe as mp
 import math as m
 import os
+import numpy as np
+from arm_recognition import arm_recognition
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 coordinates_file = open('C:/Users/vince/PycharmProjects/Reachy_Project/coordinates.txt')
 reachy = ReachySDK(host='localhost')
 angle_elbow = []
+
+########################################################################################################################
+# Extract the values from the coordinates_file.txt and put them in a 2D list
+coordinates = arm_recognition()
+
+print(coordinates[1][0][0])
+########################################################################################################################
 
 
 def offset_distance(x1, y1, x2, y2):
@@ -30,18 +39,12 @@ def findAngle(x1, y1, x2, y2, x3, y3):
 
 
 def angle_calculation():
-    # Open coordinates_file as a list
-    coordinates = coordinates_file.readlines()
+    return 0
 
-    for i in range(len(coordinates)-1):
-        coordinates[i] = coordinates[i].strip('\n')
-        # print(coordinates[i])
-        img_to_treat = coordinates[i]
-        # print(img_to_treat)
-        # Caculate the angle between the left shoulder and the left elbow
-        degree_elbow = findAngle(int(coordinates[i][0][0]), int(coordinates[i][0][1]), int(coordinates[i][2][4]),
-                           int(coordinates[i][2][5]), int(coordinates[i][7][14]), int(coordinates[i][7][15]))
 
-        print("Shoulder degree: " + degree_elbow)
+
+
+
+#angle_calculation()
 
 #TODO : find a way to calculate the angle between the left shoulder and the left elbow, it return an invalid literal for int() with base 10: '['
