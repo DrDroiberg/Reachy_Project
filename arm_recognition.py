@@ -6,11 +6,20 @@ import cv2 as cv
 import mediapipe as mp
 import math as m
 import os
+import pandas as pd
 import numpy as np
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 reachy = ReachySDK(host='localhost')
-coordinates = []
+left_shoulder_coords = []
+right_shoulder_coords = []
+left_elbow_coords = []
+right_elbow_coords = []
+left_wrist_coords = []
+right_wrist_coords = []
+left_hip_coords = []
+right_hip_coords = []
+
 
 def arm_recognition():
     mp_pose = mp.solutions.pose
@@ -30,34 +39,50 @@ def arm_recognition():
         # left shoulder
         left_shoulder_x = int(lm.landmark[lmPose.LEFT_SHOULDER].x * body_image.shape[1])
         left_shoulder_y = int(lm.landmark[lmPose.LEFT_SHOULDER].y * body_image.shape[0])
+        left_shoulder_coords.append([left_shoulder_x, left_shoulder_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_shoulder_coords.txt', left_shoulder_coords,delimiter=", ", fmt='%s')
 
         # right shoulder
         right_shoulder_x = int(lm.landmark[lmPose.RIGHT_SHOULDER].x * body_image.shape[1])
         right_shoulder_y = int(lm.landmark[lmPose.RIGHT_SHOULDER].y * body_image.shape[0])
+        right_shoulder_coords.append([right_shoulder_x, right_shoulder_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_shoulder_coords.txt', right_shoulder_coords,delimiter=", ", fmt='%s')
 
         # left elbow
         left_elbow_x = int(lm.landmark[lmPose.LEFT_ELBOW].x * body_image.shape[1])
         left_elbow_y = int(lm.landmark[lmPose.LEFT_ELBOW].y * body_image.shape[0])
+        left_elbow_coords.append([left_elbow_x, left_elbow_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_elbow_coords.txt', left_elbow_coords,delimiter=", ", fmt='%s')
 
         # right elbow
         right_elbow_x = int(lm.landmark[lmPose.RIGHT_ELBOW].x * body_image.shape[1])
         right_elbow_y = int(lm.landmark[lmPose.RIGHT_ELBOW].y * body_image.shape[0])
+        right_elbow_coords.append([right_elbow_x, right_elbow_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_elbow_coords.txt', right_elbow_coords,delimiter=", ", fmt='%s')
 
         # left wrist
         left_wrist_x = int(lm.landmark[lmPose.LEFT_WRIST].x * body_image.shape[1])
         left_wrist_y = int(lm.landmark[lmPose.LEFT_WRIST].y * body_image.shape[0])
+        left_wrist_coords.append([left_wrist_x, left_wrist_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_wrist_coords.txt', left_wrist_coords,delimiter=", ", fmt='%s')
 
         # right wrist
         right_wrist_x = int(lm.landmark[lmPose.RIGHT_WRIST].x * body_image.shape[1])
         right_wrist_y = int(lm.landmark[lmPose.RIGHT_WRIST].y * body_image.shape[0])
+        right_wrist_coords.append([right_wrist_x, right_wrist_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_wrist_coords.txt', right_wrist_coords,delimiter=", ", fmt='%s')
 
         # left hip
         left_hip_x = int(lm.landmark[lmPose.LEFT_HIP].x * body_image.shape[1])
         left_hip_y = int(lm.landmark[lmPose.LEFT_HIP].y * body_image.shape[0])
+        left_hip_coords.append([left_hip_x, left_hip_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_hip_coords.txt', left_hip_coords,delimiter=", ", fmt='%s')
 
         # right hip
         right_hip_x = int(lm.landmark[lmPose.RIGHT_HIP].x * body_image.shape[1])
         right_hip_y = int(lm.landmark[lmPose.RIGHT_HIP].y * body_image.shape[0])
+        right_hip_coords.append([right_hip_x, right_hip_y])
+        np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_hip_coords.txt', right_hip_coords,delimiter=", ", fmt='%s')
 
 
 ##############################################################################################################
@@ -67,17 +92,10 @@ def arm_recognition():
         cv.waitKey(1)
 
 ##############################################################################################################
-        # Stocking the coordinates in a list, it's a 3D list
-        coordinates.append([[left_shoulder_x, left_shoulder_y], [right_shoulder_x, right_shoulder_y],
-                        [left_elbow_x, left_elbow_y], [right_elbow_x, right_elbow_y],
-                        [left_wrist_x, left_wrist_y], [right_wrist_x, right_wrist_y],
-                            [left_hip_x, left_hip_y], [right_hip_x, right_hip_y]])
 
-    # Save the coordinates list in a file
-    with open('C:/Users/vince/PycharmProjects/Reachy_Project/coordinates.txt', 'w') as f:
-        for item in coordinates:
-            f.write("%s\n" % item)
-    f.close()
 
-    return coordinates
+
+
+
+arm_recognition()
 

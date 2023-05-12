@@ -10,15 +10,20 @@ import numpy as np
 from arm_recognition import arm_recognition
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
-coordinates_file = open('C:/Users/vince/PycharmProjects/Reachy_Project/coordinates.txt')
 reachy = ReachySDK(host='localhost')
 angle_elbow = []
 
 ########################################################################################################################
 # Extract the values from the coordinates_file.txt and put them in a 2D list
-coordinates = arm_recognition()
+left_shoulder_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_shoulder_coords.txt', delimiter=',')
+right_shoulder_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_shoulder_coords.txt', delimiter=',')
+left_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_elbow_coords.txt', delimiter=',')
+right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_elbow_coords.txt', delimiter=',')
+left_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_wrist_coords.txt', delimiter=',')
+right_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_wrist_coords.txt', delimiter=',')
+left_hip_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/left_hip_coords.txt', delimiter=',')
+right_hip_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/right_hip_coords.txt', delimiter=',')
 
-print(coordinates[1][0][0])
 ########################################################################################################################
 
 
@@ -34,17 +39,18 @@ def findAngle(x1, y1, x2, y2, x3, y3):
     c = offset_distance(x1, y1, x2, y2)
 
     theta = m.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b))
-    degree = theta * int(180 / m.pi)
-    return degree
+    degree = theta * int(180 / m.pi) # + 90
+    return round(degree, 2)
 
 
-def angle_calculation():
-    return 0
+def angle_shoulder():
+    #TODO : find a way to make the angle_shoulder function work with the coordinates_x.txt
+
+    return angle_shoulder
 
 
 
 
 
-#angle_calculation()
+angle_shoulder()
 
-#TODO : find a way to calculate the angle between the left shoulder and the left elbow, it return an invalid literal for int() with base 10: '['
