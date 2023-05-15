@@ -44,8 +44,8 @@ def findAngle(x1, y1, x2, y2, x3, y3):
 
 
 def angle_shoulder():
-    #TODO : find a way to make the angle_shoulder function work with the coordinates_x.txt
-
+    angle_shoulder = findAngle(left_shoulder_coords[0], left_shoulder_coords[1], left_elbow_coords[0], left_elbow_coords[1], left_hip_coords[0], left_hip_coords[1])
+    print(angle_shoulder)
     return angle_shoulder
 
 
