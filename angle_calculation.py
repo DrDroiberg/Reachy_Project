@@ -43,14 +43,29 @@ def findAngle(x1, y1, x2, y2, x3, y3):
     return round(degree, 2)
 
 
-def angle_shoulder():
+def angle_left_shoulder():
     angle_shoulder = findAngle(left_shoulder_coords[0], left_shoulder_coords[1], left_elbow_coords[0], left_elbow_coords[1], left_hip_coords[0], left_hip_coords[1])
     print(angle_shoulder)
     return angle_shoulder
 
+def angle_right_shoulder():
+    angle_shoulder = findAngle(right_shoulder_coords[0], right_shoulder_coords[1], right_elbow_coords[0], right_elbow_coords[1], right_hip_coords[0], right_hip_coords[1])
+    print(angle_shoulder)
+    return angle_shoulder
+
+def angle_left_elbow():
+    angle_elbow = findAngle(left_elbow_coords[0], left_elbow_coords[1], left_wrist_coords[0], left_wrist_coords[1], left_shoulder_coords[0], left_shoulder_coords[1])
+    print(angle_elbow)
+    return angle_elbow
+
+def angle_right_elbow():
+    angle_elbow = findAngle(right_elbow_coords[0], right_elbow_coords[1], right_wrist_coords[0], right_wrist_coords[1], right_shoulder_coords[0], right_shoulder_coords[1])
+    print(angle_elbow)
+    return angle_elbow
 
 
 
 
-angle_shoulder()
+
+angle_left_shoulder()
 
