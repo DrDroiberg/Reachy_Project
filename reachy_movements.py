@@ -41,5 +41,20 @@ def left_arm_movement(shoulder_roll_angle, elbow_pitch_angle):
     )
 
 
-# for i in range(0, 10):
-#     left_arm_movement(shoulder_roll_angle[i], elbow_pitch_angle[i])
+def right_arm_movement(shoulder_pitch, shoulder_roll, arm_yaw, elbow_pitch):
+
+    right_arm_position = {
+        reachy.r_arm.r_shoulder_pitch: shoulder_pitch,
+        reachy.r_arm.r_shoulder_roll: shoulder_roll,
+        reachy.r_arm.r_arm_yaw: arm_yaw,
+        reachy.r_arm.r_elbow_pitch: elbow_pitch,
+        reachy.r_arm.r_forearm_yaw: 0,
+        reachy.r_arm.r_wrist_pitch: 0,
+        reachy.r_arm.r_wrist_roll: 0,
+    }
+
+    goto(
+        goal_positions=right_arm_position,
+        duration=time_movement,
+        interpolation_mode=InterpolationMode.MINIMUM_JERK
+    )

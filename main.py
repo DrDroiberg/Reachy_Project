@@ -1,102 +1,50 @@
-from reachy_sdk import ReachySDK
-from reachy_sdk.trajectory import goto
-from reachy_sdk.trajectory import InterpolationMode
 import time
 
+from reachy_sdk import ReachySDK
+import numpy as np
 
-def happy_antennas():
-    for _ in range(7):
-        reachy.head.l_antenna.goal_position = 30.0
-        reachy.head.r_antenna.goal_position = -30.0
+from camera_control import camera_control
+from arm_recognition import arm_recognition
+from reachy_movements import right_arm_movement
+from angle_calculation import angle_right_shoulder
+from angle_calculation import angle_right_elbow
+from angle_calculation import angle_right_arm_yam
+from angle_calculation import angle_right_shoulder_pitch
 
-        time.sleep(0.2)
+reachy = ReachySDK(host='localhost')
 
-        reachy.head.l_antenna.goal_position = -30.0
-        reachy.head.r_antenna.goal_position = 30.0
+path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
 
-        time.sleep(0.2)
+print("Start the camera")
+camera_control()
+print("Camera is done")
+time.sleep(2)
+print("Start the arm recognition")
+arm_recognition()
+print("Arm recognition is done")
+time.sleep(2)
+print("Start the angle calculation")
+for i in range(0, 10):
+    with open(path_txt + 'right_shoulder_angle.txt', 'a') as f:
+        f.write(str(angle_right_shoulder(i)) + '\n')
 
-    reachy.head.l_antenna.goal_position = 0.0
-    reachy.head.r_antenna.goal_position = 0.0
+    with open(path_txt + 'right_elbow_angle.txt', 'a') as f:
+        f.write(str(angle_right_elbow(i)) + '\n')
 
+    with open(path_txt + 'right_arm_yam_angle.txt', 'a') as f:
+        f.write(str(angle_right_arm_yam(i)) + '\n')
 
-def hello_left_arm():
-    left_arm_hello_position = {
-        reachy.l_arm.l_shoulder_pitch: 0,
-        reachy.l_arm.l_shoulder_roll: 50,
-        reachy.l_arm.l_arm_yaw: 70,
-        reachy.l_arm.l_elbow_pitch: -120,
-        reachy.l_arm.l_forearm_yaw: 80,
-        reachy.l_arm.l_wrist_pitch: 0,
-        reachy.l_arm.l_wrist_roll: -40,
-    }
+    with open(path_txt + 'right_elbow_pitch_angle.txt', 'a') as f:
+        f.write(str(angle_right_shoulder_pitch(i)) + '\n')
 
-    left_arm_base_position = {
-        reachy.l_arm.l_shoulder_pitch: 0,
-        reachy.l_arm.l_shoulder_roll: 0,
-        reachy.l_arm.l_arm_yaw: 0,
-        reachy.l_arm.l_elbow_pitch: 0,
-        reachy.l_arm.l_forearm_yaw: 0,
-        reachy.l_arm.l_wrist_pitch: 0,
-        reachy.l_arm.l_wrist_roll: 0,
-    }
+print("Angle calculation is done")
+time.sleep(2)
+shoulder_pitch = np.loadtxt(path_txt + 'right_pitch_shoulder_angle.txt')
+elbow_pitch = np.loadtxt(path_txt + 'right_elbow_angle.txt')
+shoulder_roll = np.loadtxt(path_txt + 'right_shoulder_angle.txt')
+arm_yaw = np.loadtxt(path_txt + 'right_arm_yam_angle.txt')
 
-    goto(
-        goal_positions=left_arm_hello_position,
-        duration=1.0,
-        interpolation_mode=InterpolationMode.MINIMUM_JERK
-    )
-
-    for _ in range(3):
-        goto(
-            goal_positions={reachy.l_arm.l_wrist_roll: 20.0},
-            duration=0.5,
-            interpolation_mode=InterpolationMode.LINEAR
-        )
-        goto(
-            goal_positions={reachy.l_arm.l_wrist_roll: -40.0},
-            duration=0.5,
-            interpolation_mode=InterpolationMode.LINEAR
-        )
-
-    time.sleep(0.2)
-
-    goto(
-        goal_positions=left_arm_base_position,
-        duration=2.0,
-        interpolation_mode=InterpolationMode.LINEAR
-    )
-
-
-def move_head():
-    reachy.head.look_at(0.5, -0.3, -0.1, duration=1.0)
-    time.sleep(0.3)
-    reachy.head.look_at(0.5, 0.3, -0.1, duration=1.0)
-    time.sleep(0.3)
-    reachy.head.look_at(0.5, 0, -0.1, duration=1.0)
-    time.sleep(0.3)
-
-    head_tilted_position = {
-        reachy.head.neck_roll: -20,
-        reachy.head.neck_pitch: 0,
-        reachy.head.neck_yaw: 0,
-    }
-
-    goto(
-        goal_positions=head_tilted_position,
-        duration=1.0,
-        interpolation_mode=InterpolationMode.MINIMUM_JERK
-    )
-
-
-def say_hello():
-    move_head()
-    happy_antennas()
-    hello_left_arm()
-    reachy.head.look_at(0.5, 0, 0, duration=0.5)
-
-
-if __name__ == "__main__":
-    reachy = ReachySDK(host='localhost')  # replace with correct IP if the simulation is not on your computer
-
-    say_hello()
+print("Start the arm movement")
+for i in range(0, 10):
+    right_arm_movement(shoulder_pitch[i], shoulder_roll[i], arm_yaw[i], elbow_pitch[i])
+print("Arm movement is done")

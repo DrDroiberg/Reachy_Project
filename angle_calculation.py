@@ -55,14 +55,16 @@ def angle_right_elbow(i):
     return angle_elbow
 
 
-def angle_right_arm_yamn(i):
+def angle_right_arm_yam(i):
     angle_yamn = findRotation(right_wrist_coords[i][2], right_wrist_coords[i][0], right_elbow_coords[i][2],
                               right_elbow_coords[i][0])
+    return angle_yamn
 
 
-def right_pitch_angle(i):
+def angle_right_shoulder_pitch(i):
     angle_pitch = findRotation(right_shoulder_coords[i][2], right_shoulder_coords[i][1], right_elbow_coords[i][2],
                                right_elbow_coords[i][1])
+    return angle_pitch
 
 
 for i in range(0, 10):
@@ -91,4 +93,18 @@ for i in range(0, 10):
 
     # save the right elbow angle in a file
     with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_angle.txt', 'a') as f:
+        f.write(str(angle) + '\n')
+
+for i in range(0, 10):
+    angle = angle_right_arm_yam(i)
+
+    # save the right arm yam angle in a file
+    with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_arm_yam_angle.txt', 'a') as f:
+        f.write(str(angle) + '\n')
+
+for i in range(0, 10):
+    angle = angle_right_shoulder_pitch(i)
+
+    # save the right arm pitch angle in a file
+    with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_pitch_shoulder_angle.txt', 'a') as f:
         f.write(str(angle) + '\n')
