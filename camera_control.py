@@ -1,6 +1,4 @@
 from reachy_sdk import ReachySDK
-from reachy_sdk.trajectory import goto
-from reachy_sdk.trajectory import InterpolationMode
 import time
 import cv2 as cv
 import os
