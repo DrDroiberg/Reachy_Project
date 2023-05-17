@@ -18,7 +18,7 @@ left_hip_coords = []
 right_hip_coords = []
 
 
-
+########################################################################################################################
 def arm_recognition():
     mp_pose = mp.solutions.pose
     pose = mp_pose.Pose()
@@ -93,7 +93,7 @@ def arm_recognition():
 
 ##############################################################################################################
         # Drawing the landmarks on the images
-        mpDraw.draw_landmarks(body_image, lm, mp_pose.POSE_CONNECTIONS)
+        mpDraw.draw_landmarks(body_image, lm, mp_pose.POSE_CONNECTIONS, landmark_drawing_spec=mp.solutions.drawing_styles.get_default_pose_landmarks_style())
         cv.imwrite(os.path.join(path, 'body_recognise_'+str(i)+'.jpg'), body_image)
         cv.waitKey(1)
 

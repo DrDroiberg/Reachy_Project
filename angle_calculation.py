@@ -5,6 +5,7 @@ import os
 
 from picture_calculation import findAngle
 from picture_calculation import findRotation
+from picture_calculation import findTheta
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
 reachy = ReachySDK(host='localhost')
@@ -25,6 +26,7 @@ left_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/li
 right_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_wrist_coords.txt',
                                 delimiter=',')
 left_hip_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/left_hip_coords.txt', delimiter=',')
+
 right_hip_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_hip_coords.txt',
                               delimiter=',')
 
@@ -56,14 +58,12 @@ def angle_right_elbow(i):
 
 
 def angle_right_arm_yam(i):
-    angle_yamn = findRotation(right_wrist_coords[i][2], right_wrist_coords[i][0], right_elbow_coords[i][2],
-                              right_elbow_coords[i][0])
+    angle_yamn = findTheta(right_elbow_coords[i][0], right_elbow_coords[i][1], right_wrist_coords[i][0], right_wrist_coords[i][1])
     return angle_yamn
 
 
 def angle_right_shoulder_pitch(i):
-    angle_pitch = findRotation(right_shoulder_coords[i][2], right_shoulder_coords[i][1], right_elbow_coords[i][2],
-                               right_elbow_coords[i][1])
+    angle_pitch = findTheta(right_shoulder_coords[i][0], right_shoulder_coords[i][1], right_elbow_coords[i][0], right_elbow_coords[i][1])
     return angle_pitch
 
 

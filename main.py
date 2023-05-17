@@ -3,7 +3,7 @@ import time
 from reachy_sdk import ReachySDK
 import numpy as np
 
-from camera_control_webcam import camera_capture
+
 from camera_control import camera_control
 from arm_recognition import arm_recognition
 from reachy_movements import right_arm_movement
@@ -17,7 +17,7 @@ reachy = ReachySDK(host='localhost')
 path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
 
 print("Start the camera")
-camera_capture() # camera_control()
+# camera_capture()
 print("Camera is done")
 time.sleep(2)
 print("Start the arm recognition")
@@ -35,7 +35,7 @@ for i in range(0, 10):
     with open(path_txt + 'right_arm_yam_angle.txt', 'a') as f:
         f.write(str(angle_right_arm_yam(i)) + '\n')
 
-    with open(path_txt + 'right_elbow_pitch_angle.txt', 'a') as f:
+    with open(path_txt + 'right_pitch_shoulder_angle.txt', 'a') as f:
         f.write(str(angle_right_shoulder_pitch(i)) + '\n')
 
 print("Angle calculation is done")

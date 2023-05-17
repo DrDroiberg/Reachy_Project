@@ -45,9 +45,9 @@ def right_arm_movement(shoulder_pitch, shoulder_roll, arm_yaw, elbow_pitch):
 
     right_arm_position = {
         reachy.r_arm.r_shoulder_pitch: shoulder_pitch,
-        reachy.r_arm.r_shoulder_roll: -shoulder_roll,
-        reachy.r_arm.r_arm_yaw: arm_yaw,
-        reachy.r_arm.r_elbow_pitch: 180 - elbow_pitch,
+        reachy.r_arm.r_shoulder_roll: shoulder_roll,
+        reachy.r_arm.r_arm_yaw: -arm_yaw,
+        reachy.r_arm.r_elbow_pitch: elbow_pitch,
         reachy.r_arm.r_forearm_yaw: 0,
         reachy.r_arm.r_wrist_pitch: 0,
         reachy.r_arm.r_wrist_roll: 0,
