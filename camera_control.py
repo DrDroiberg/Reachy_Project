@@ -22,5 +22,5 @@ def camera_control():
     # save the image from img_file in a folder
         cv.imwrite(os.path.join(path, 'img_'+str(i)+'.jpg'), img_file[i])
 
-time.sleep(2)
-camera_control()
+#time.sleep(2)
+#camera_control()

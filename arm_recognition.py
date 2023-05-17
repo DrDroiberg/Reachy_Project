@@ -5,6 +5,8 @@ import os
 import numpy as np
 
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
+folder = 'camera_opencv' # or 'camera_images'
+
 reachy = ReachySDK(host='localhost')
 left_shoulder_coords = []
 right_shoulder_coords = []
@@ -23,7 +25,7 @@ def arm_recognition():
     mpDraw = mp.solutions.drawing_utils
 
     for i in range(0, 10):
-        body_image = cv.imread('C:/Users/vince/PycharmProjects/Reachy_Project/camera_images/img_'+str(i)+'.jpg')
+        body_image = cv.imread('C:/Users/vince/PycharmProjects/Reachy_Project/'+ folder +'/img_'+str(i)+'.jpg')
         imgRGB = cv.cvtColor(body_image, cv.COLOR_BGR2RGB)
         results = pose.process(imgRGB)
 

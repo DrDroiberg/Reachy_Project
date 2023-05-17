@@ -5,9 +5,12 @@ import numpy as np
 
 from camera_control import camera_control
 from arm_recognition import arm_recognition
-from angle_calculation import angle_left_shoulder
-from angle_calculation import angle_left_elbow
-from reachy_movements import left_arm_movement
+from reachy_movements import right_arm_movement
+from angle_calculation import angle_right_shoulder
+from angle_calculation import angle_right_elbow
+from angle_calculation import angle_right_arm_yam
+from angle_calculation import angle_right_pitch
+
 
 reachy = ReachySDK(host='localhost')
 
@@ -22,24 +25,16 @@ print("Arm recognition is done")
 time.sleep(2)
 print("Start the angle calculation")
 for i in range(0, 10):
-    angle = angle_left_shoulder(i)
-
-    # save the right shoulder angle in a file
-    with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_shoulder_angle.txt', 'a') as f:
-        f.write(str(angle) + '\n')
-
-    angle = angle_left_elbow(i)
-
-    # save the right elbow angle in a file
-    with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_angle.txt', 'a') as f:
-        f.write(str(angle) + '\n')
+    angle_right_shoulder(i)
+    angle_right_elbow(i)
+    angle_right_arm_yam(i)
+    angle_right_pitch(i)
 
 print("Angle calculation is done")
 time.sleep(2)
-shoulder_roll_angle = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/left_shoulder_angle.txt')
-elbow_pitch_angle = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/left_elbow_angle.txt')
-time.sleep(2)
+
 print("Start the arm movement")
 for i in range(0, 10):
-    left_arm_movement(shoulder_roll_angle[i], elbow_pitch_angle[i])
+    right_arm_movement(shoulder_roll_angle[i], elbow_pitch_angle[i])
+
 print("Arm movement is done")

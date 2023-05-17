@@ -3,6 +3,7 @@ import time
 from reachy_sdk import ReachySDK
 import numpy as np
 
+from camera_control_webcam import camera_capture
 from camera_control import camera_control
 from arm_recognition import arm_recognition
 from reachy_movements import right_arm_movement
@@ -16,7 +17,7 @@ reachy = ReachySDK(host='localhost')
 path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
 
 print("Start the camera")
-camera_control()
+camera_capture() # camera_control()
 print("Camera is done")
 time.sleep(2)
 print("Start the arm recognition")
