@@ -1,12 +1,30 @@
 from reachy_sdk import ReachySDK
-import math as m
+from math import cos
 import numpy as np
 import os
 import cv2 as cv
 
-right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_coords.txt')
+from picture_calculation import offset_distance
+path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
+def get_z():
+    right_elbow_angle = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_angle.txt',
+                                   delimiter=',')
+    right_arm_yaw = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_arm_yaw_angle.txt',
+                               delimiter=',')
 
-reachy = ReachySDK(host='localhost')
+    right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_coords.txt',
+                                    delimiter=',')
+    right_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_wrist_coords.txt',
+                                    delimiter=',')
 
-# Get the third coordinate of the right elbow from the coordinates in the list
+    reachy = ReachySDK(host='localhost')
+    for i in range(0, 10):
 
+        L = offset_distance(right_elbow_coords[i][0], right_elbow_coords[i][1], right_wrist_coords[i][0],
+                            right_wrist_coords[i][1])
+        r = L * cos(right_elbow_angle - 90)
+        z = r * cos(right_arm_yaw)
+
+        with open(path_txt + 'wrist_z.txt', 'a') as f:
+            f.write(str(z(i)) + '\n')
+    return z
