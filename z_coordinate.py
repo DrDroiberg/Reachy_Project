@@ -9,7 +9,7 @@ path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
 def get_z():
     right_elbow_angle = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_angle.txt',
                                    delimiter=',')
-    right_arm_yaw = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_arm_yaw_angle.txt',
+    right_arm_yaw = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_arm_yam_angle.txt',
                                delimiter=',')
 
     right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_coords.txt',
@@ -22,9 +22,8 @@ def get_z():
 
         L = offset_distance(right_elbow_coords[i][0], right_elbow_coords[i][1], right_wrist_coords[i][0],
                             right_wrist_coords[i][1])
-        r = L * cos(right_elbow_angle - 90)
-        z = r * cos(right_arm_yaw)
+        r = L * cos(right_elbow_angle[i] - 90)
+        z = r * cos(right_arm_yaw[i])
 
         with open(path_txt + 'wrist_z.txt', 'a') as f:
-            f.write(str(z(i)) + '\n')
-    return z
+            f.write(str(z) + '\n')

@@ -25,6 +25,6 @@ def findRotation(x1, y1, x2, y2):
 
 def findTheta(member1_y, member1_z, member2_y, member2_z):
     lenght = offset_distance(member1_y, member1_z, member2_y, member2_z)
-    theta = m.acos(lenght / member2_y)
+    theta = m.acos(lenght / member2_z)
     degree = theta * int(180 / m.pi)
     return round(degree, 2)
