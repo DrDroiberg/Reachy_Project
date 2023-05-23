@@ -9,7 +9,7 @@ right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/l
 
 
 pixel_L = offset_distance(right_elbow_coords[0][0], right_elbow_coords[0][1], right_wrist_coords[0][0], right_wrist_coords[0][1])
-cm_L = pixel_L / 250000
+cm_L = 25 / pixel_L
 def coeff_px_to_cm():
-    return cm_L
+    return cm_L/100
 

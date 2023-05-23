@@ -16,17 +16,17 @@ centre_y = min(right_shoulder[0][1], left_shoulder[0][1]) + (abs(right_shoulder[
 print(centre_x)
 print(centre_y)
 
-right_wrist_coords_cm = []
+right_wrist_coords_centered = []
 def coordinate_transposition():
 # Transform the coordinates to be used by the robot
     for i in range(0, 10):
         right_wrist_coords[i][0] = right_wrist_coords[i][0] - centre_x
-        right_wrist_coords[i][1] = right_wrist_coords[i][1] - centre_y
+        right_wrist_coords[i][1] = centre_y - right_wrist_coords[i][1]
 
-        right_wrist_coords_cm.append([right_wrist_coords[i][0], right_wrist_coords[i][1]])
+        right_wrist_coords_centered.append([right_wrist_coords[i][0], right_wrist_coords[i][1]])
 
-        with open(path_txt + 'right_wrist_coords.txt', 'a') as f:
-            f.write(str(right_wrist_coords) + '\n')
+    np.savetxt(path_txt + 'right_wrist_coords_cm.txt', right_wrist_coords_centered, delimiter=',', fmt='%1.3f')
 
-coordinate_transposition()
+# coordinate_transposition()
 # TODO centrer toutes les coordonées par rapport au centre du torse
+# TODO remplacer les 'a' par des 'w' dans les fichiers txt
