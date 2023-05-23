@@ -55,15 +55,17 @@ print("Start the coordinate transposition")
 coordinate_transposition()
 print("Coordinate transposition is done")
 
+right_wrist_cm = np.loadtxt(path_txt + 'right_wrist_coords_cm.txt', delimiter=',')
+
 print("Coeff px to cm: ", coeff_px_to_cm)
 #
 # print(right_wrist_z * coeff_px_to_cm)
 print("Right wrist")
-print(right_wrist * coeff_px_to_cm)
+print(right_wrist_cm * coeff_px_to_cm)
 
 print("Start the inverse kinematic")
 # Inverse Kinematic
-inverse_kinematic(gamma, beta, alpha, right_wrist_z, right_wrist)
+inverse_kinematic(gamma, beta, alpha, right_wrist_z, right_wrist_cm)
 print("Inverse kinematic is done")
 
 

@@ -21,7 +21,7 @@ def coordinate_transposition():
 # Transform the coordinates to be used by the robot
     for i in range(0, 10):
         right_wrist_coords[i][0] = right_wrist_coords[i][0] - centre_x
-        right_wrist_coords[i][1] = centre_y - right_wrist_coords[i][1]
+        right_wrist_coords[i][1] = right_wrist_coords[i][1] - centre_y
 
         right_wrist_coords_centered.append([right_wrist_coords[i][0], right_wrist_coords[i][1]])
 
