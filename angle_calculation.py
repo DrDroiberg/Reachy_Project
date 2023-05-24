@@ -96,7 +96,7 @@ for i in range(0, 10):
         f.write(str(angle) + '\n')
 
 for i in range(0, 10):
-    angle = angle_right_arm_yam(i)
+    # angle = angle_right_arm_yam(i)
 
     # save the right arm yam angle in a file
     with open('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_arm_yam_angle.txt', 'a') as f:
