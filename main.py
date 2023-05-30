@@ -1,14 +1,9 @@
 import time
 from reachy_sdk import ReachySDK
 import numpy as np
-from arm_recognition import arm_recognition
-from angle_calculation import angle_right_elbow, angle_right_shoulder_pitch
 from coordinate_transposition import coordinate_transposition_xy
-from z_coordinate import get_z
 from inverse_kinematic import inverse_kinematic_v2
-from conversion_px_cm import coeff_px_to_cm
 from pose_detection import pose_recognition
-from mediapipe.framework.formats import landmark_pb2
 
 reachy = ReachySDK(host='localhost')
 
@@ -17,16 +12,18 @@ path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/data_list'
 gamma = 0
 beta = 0
 alpha = 0
-coeff_px_to_cm = coeff_px_to_cm()
+# coeff_px_to_cm = coeff_px_to_cm()
 
 #####################
 # Defining the landmarks
 # Right
+right_hip = 24
 right_shoulder = 12
 right_elbow = 14
 right_wrist = 16
 
 # Left
+left_hip = 23
 left_shoulder = 11
 left_elbow = 13
 left_wrist = 15
@@ -92,28 +89,31 @@ time.sleep(2)
 # print("Inverse kinematic is done")
 #
 
-data_wrist = np.loadtxt(path_txt + '/data_img_0.txt', delimiter=',')
 
-print(data_wrist[0][right_wrist])
 
-print("Start the inverse kinematic")
+print("Start transposition")
 for i in range(0, 10):
     data = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/data_list/data_img_' + str(i) + '.txt'
                       , delimiter=',')
 
-    print(type(data))
+    #####################
+    # Transposition to the center of the robot
+    distance_right_wrist_shoulder_center = coordinate_transposition_xy(data)
+    #####################
 
-    # reconstructed  = landmark_pb2.NormalizedLandmarkList(data)
+print("Transposition is done")
+time.sleep(2)
+print("Start the inverse kinematic")
 
-    # np.savetxt('C:/Users/vince/PycharmProjects/Reachy_Project/data_list/' + str(i) + '.txt', reconstructed, delimiter=',')
+for i in range(0, 10):
+    # Right wrist
+    x = distance_right_wrist_shoulder_center[i][0]
+    y = distance_right_wrist_shoulder_center[i][1]
+    z = distance_right_wrist_shoulder_center[i][2]
 
-    x = data[0][right_wrist]
-    y = data[1][right_wrist]
-    z = data[2][right_wrist]
+    print("X: ", x , "Y: ", y , "Z: ", z )
 
-    print("X: ", -x , "Y: ", y , "Z: ", -z )
-
-    inverse_kinematic_v2(gamma, beta, alpha, -z , -x , y )
+    inverse_kinematic_v2(gamma, beta, alpha, z , x , y )
 
 print("Inverse kinematic is done")
 

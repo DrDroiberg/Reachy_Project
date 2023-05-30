@@ -4,12 +4,13 @@ import mediapipe as mp
 # import numpy as np
 # import pickle
 # import matplotlib as mpl
-import matplotlib.pyplot as plt
 # from matplotlib import animation
 # import PyQt5
 # from PIL import Image
 # from IPython.display import Video
 import nb_helpers
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import os
 
@@ -48,24 +49,16 @@ def pose_recognition():
 
         np.savetxt(os.path.join(path_txt, 'data_img_' + str(i) + '.txt'), data, delimiter=',', fmt='%1.3f') #
 
-    # fig = plt.figure(figsize=(10, 10))
-    # fig.set_size_inches(5, 5, True)
-    # ax = fig.add_subplot(projection='3d')
-    #
-    # x = data[0, :]
-    # y = data[1, :]
-    # z = data[2, :]
-    #
-    # ax.plot(x, y, z, zdir='z')
-    #
-    # plt.show()
+    fig = plt.figure(figsize=(10, 10)) # inches
+    ax = fig.add_subplot(111, projection='3d')
 
-    #nb_helpers.plot_data(data, ax)
-    #nb_helpers.scale_axes(ax, data)
+    ax.plot(data[0, :], data[1, :], data[2, :], zdir='z')
 
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
 
+    plt.show()
 
-    # filename = os.path.join(path, 'body_recognise_' + str(i) + '.png')
-    # plt.imsave(filename)
-
+pose_recognition()
 

@@ -1,12 +1,9 @@
 from reachy_sdk import ReachySDK
 from math import cos, sin
 import numpy as np
-from conversion_px_cm import coeff_px_to_cm
-from picture_calculation import offset_distance
-
 from picture_calculation import offset_distance
 path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
-coeff = coeff_px_to_cm()
+# coeff = coeff_px_to_cm()
 
 def get_z():
     right_elbow_angle = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_angle.txt',
@@ -48,5 +45,5 @@ def get_depth(i):
     print("Arm lenght: ", arm_lenght)
     print("Forearm lenght: ", forearm_lenght)
 
-    depth = (0.25 - forearm_lenght * coeff) + (0.28 - arm_lenght * coeff)
+    depth = (0.25 - forearm_lenght) + (0.28 - arm_lenght)
     return depth
