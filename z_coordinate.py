@@ -34,10 +34,19 @@ def get_z():
             f.write(str(z) + '\n')
 
 
-def get_depth(i, shoulder_coords, elbow_coords, wrist_coords):
+def get_depth(i):
+    right_elbow_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_elbow_coords.txt',
+                                    delimiter=',')
+    right_wrist_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_wrist_coords.txt',
+                                    delimiter=',')
+    right_shoulder_coords = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/listes/right_shoulder_coords.txt',
+                                       delimiter=',')
 
-    arm_lenght = offset_distance(shoulder_coords[i][0], shoulder_coords[i][1], elbow_coords[i][0], elbow_coords[i][1])
-    forearm_lenght = offset_distance(elbow_coords[i][0], elbow_coords[i][1], wrist_coords[i][0], wrist_coords[i][1])
+    arm_lenght = offset_distance(right_shoulder_coords[i][0], right_shoulder_coords[i][1], right_elbow_coords[i][0], right_elbow_coords[i][1])
+    forearm_lenght = offset_distance(right_elbow_coords[i][0], right_elbow_coords[i][1], right_wrist_coords[i][0], right_wrist_coords[i][1])
+
+    print("Arm lenght: ", arm_lenght)
+    print("Forearm lenght: ", forearm_lenght)
 
     depth = (0.25 - forearm_lenght * coeff) + (0.28 - arm_lenght * coeff)
     return depth
