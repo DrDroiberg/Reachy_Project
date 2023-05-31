@@ -28,7 +28,7 @@ folder  = 'camera_opencv'
 def pose_recognition():
     for i in range(0, 10):
 
-        with mp_pose.Pose(static_image_mode=True, model_complexity=2, enable_segmentation=True) as pose:
+        with mp_pose.Pose(static_image_mode=True, min_detection_confidence=0.5, model_complexity=2, enable_segmentation=True) as pose:
             body_image = cv.imread('C:/Users/vince/PycharmProjects/Reachy_Project/' + folder + '/img_' + str(i) + '.jpg')
             results = pose.process(cv.cvtColor(body_image, cv.COLOR_BGR2RGB))
 
@@ -49,16 +49,17 @@ def pose_recognition():
 
         np.savetxt(os.path.join(path_txt, 'data_img_' + str(i) + '.txt'), data, delimiter=',', fmt='%1.3f') #
 
-    fig = plt.figure(figsize=(10, 10)) # inches
-    ax = fig.add_subplot(111, projection='3d')
 
-    ax.plot(data[0, :], data[1, :], data[2, :], zdir='z')
+    # fig = plt.figure(figsize=(10, 10)) # inches
+    # ax = fig.add_subplot(111, projection='3d')
+    #
+    # ax.plot(data[2, 16], data[0, 16], data[1, 16], zdir='y')
+    #
+    # ax.set_xlabel('X')
+    # ax.set_ylabel('Y')
+    # ax.set_zlabel('Z')
+    #
+    # plt.show()
 
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
 
-    plt.show()
-
-pose_recognition()
 

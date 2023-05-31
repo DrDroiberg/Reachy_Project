@@ -101,6 +101,7 @@ for i in range(0, 10):
     distance_right_wrist_shoulder_center = coordinate_transposition_xy(data)
     #####################
 
+# print(distance_right_wrist_shoulder_center[1][0])
 print("Transposition is done")
 time.sleep(2)
 print("Start the inverse kinematic")
@@ -111,9 +112,10 @@ for i in range(0, 10):
     y = distance_right_wrist_shoulder_center[i][1]
     z = distance_right_wrist_shoulder_center[i][2]
 
-    print("X: ", x , "Y: ", y , "Z: ", z )
+    print("X: ", z, "Y: ", x, "Z: ", y) # z, x, y
 
-    inverse_kinematic_v2(gamma, beta, alpha, z , x , y )
+    inverse_kinematic_v2(gamma, beta, alpha, z, x, y) # z, x, y
+
 
 print("Inverse kinematic is done")
 
