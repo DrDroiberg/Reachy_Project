@@ -5,8 +5,9 @@ camera = cv2.VideoCapture(0)
 i = 0
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/camera_opencv'
 
+duration = 50  # second
 
-while i < 10:
+while i < duration:
     return_value, image = camera.read()
 
     cv2.imshow('Left Eye', image)
