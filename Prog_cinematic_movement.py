@@ -1,7 +1,4 @@
 from reachy_sdk import ReachySDK
-from reachy_sdk.trajectory import goto
-from reachy_sdk.trajectory import InterpolationMode
-from scipy.spatial.transform import Rotation as R
 import numpy as np
 from math import cos,sin,radians
 
