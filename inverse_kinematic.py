@@ -3,11 +3,10 @@ import time
 from reachy_sdk import ReachySDK
 from reachy_sdk.trajectory import goto
 from Prog_cinematic_movement import Full_matrice_Rota
-from z_coordinate import get_depth
-
-# coeff = coeff_px_to_cm()
 
 reachy = ReachySDK(host='localhost')
+
+
 # def inverse_kinematic(gamma, beta, alpha, shoulder_coords, elbow_coords, wrist_coords):
 #     for i in range(0, 10):
 #         wrist_z = get_depth(i)
@@ -19,11 +18,13 @@ reachy = ReachySDK(host='localhost')
 #         time.sleep(0.5)
 #         goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), final_position)}, duration=1.0)
 
-
-def inverse_kinematic_v2(gamma, beta, alpha, x, y, z):
+def inverse_kinematic_v2(gamma, beta, alpha, x, y, z, old_movement):
 
     movement = Full_matrice_Rota(gamma, beta, alpha, x, y, z)
 
-    final_position = reachy.r_arm.inverse_kinematics(movement)
+    final_position = reachy.r_arm.inverse_kinematics(movement, q0=old_movement)
+
     time.sleep(0.5)
     goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), final_position)}, duration=1.0)
+
+    return final_position

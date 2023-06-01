@@ -12,7 +12,7 @@ path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/data_list'
 gamma = 0
 beta = 0
 alpha = 0
-# coeff_px_to_cm = coeff_px_to_cm()
+duration = 50
 
 #####################
 # Defining the landmarks
@@ -35,12 +35,12 @@ reachy.turn_on('r_arm')
 print("Start the camera")
 # camera_capture()
 print("Camera is done")
-time.sleep(2)
+# time.sleep(2)
 print("Start the arm recognition")
 # arm_recognition()
-pose_recognition()
+pose_recognition(duration)
 print("Arm recognition is done")
-time.sleep(2)
+# time.sleep(2)
 # print("Start the angle calculation")
 # for i in range(0, 10):
 #
@@ -92,8 +92,8 @@ time.sleep(2)
 
 
 print("Start transposition")
-for i in range(0, 10):
-    data = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/data_list/data_img_' + str(i) + '.txt'
+for i in range(0, duration):
+    data = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/data_list/data_rlworld_img_' + str(i) + '.txt'
                       , delimiter=',')
 
     #####################
@@ -103,20 +103,25 @@ for i in range(0, 10):
 
 # print(distance_right_wrist_shoulder_center[1][0])
 print("Transposition is done")
-time.sleep(2)
+# time.sleep(2)
 print("Start the inverse kinematic")
 
-for i in range(0, 10):
+old_movement = [0, 0, 0, 0, 0, 0, 0]
+
+for i in range(0, duration):
     # Right wrist
     x = distance_right_wrist_shoulder_center[i][0]
     y = distance_right_wrist_shoulder_center[i][1]
     z = distance_right_wrist_shoulder_center[i][2]
 
-    print("X: ", z, "Y: ", x, "Z: ", y) # z, x, y
+    print("X: ", z, "Y: ", -x, "Z: ", y) # z, x, y
 
-    inverse_kinematic_v2(gamma, beta, alpha, z, x, y) # z, x, y
+    # right arm
+    old_movement = inverse_kinematic_v2(gamma, beta, alpha, z, -x, y, old_movement) # z, x, y
 
-
+# TODO: add the left arm
+# TODO: add the condition to move the arm
+# TODO: resolve pb with the elbow
 print("Inverse kinematic is done")
 
 reachy.turn_off_smoothly('r_arm')
