@@ -31,12 +31,22 @@ distance_right_wrist_shoulder_center_z = []
 
 def coordinate_transposition_xy(data):
     # Transform the coordinates to be used by the robot
-    # distance_right_wrist_shoulder_center.append(['Y', 'Z', 'X'])
     # Center of shoulders in cm
-    x = data[0][right_shoulder] + (data[0][left_shoulder] - data[0][right_shoulder]) / 2
-    y = min(data[1][right_shoulder], data[1][left_shoulder]) + (
-                abs(data[1][right_shoulder] - data[1][left_shoulder]) / 2)
-    z = data[2][right_shoulder]
+    # x = data[0][right_shoulder] + (data[0][left_shoulder] - data[0][right_shoulder]) / 2
+    # y = min(data[1][right_shoulder], data[1][left_shoulder]) + (
+    #             abs(data[1][right_shoulder] - data[1][left_shoulder]) / 2)
+    # z = data[2][right_shoulder]
+
+    # print the soulder coordinates
+    # print("right_shoulder : ", data[0][right_shoulder], " ", data[1][right_shoulder], " ", data[2][right_shoulder])
+    # print("left_shoulder : ", data[0][left_shoulder], " ", data[1][left_shoulder], " ", data[2][left_shoulder])
+
+    x = (data[0][right_shoulder] + data[0][left_shoulder]) / 2
+    y = (data[1][right_shoulder] + data[1][left_shoulder]) / 2
+    z = (data[2][right_shoulder] + data[2][left_shoulder]) / 2
+
+    # Print the center of the shoulders
+    # print("center of the shoulders : ", x, " ", y, " ", z)
 
     # Distance between the right wrist and the center of the shoulders in cm
     distance_right_wrist_shoulder_center_x = x - data[0][right_wrist]
