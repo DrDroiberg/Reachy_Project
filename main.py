@@ -1,8 +1,8 @@
-import time
+# Description: This file is the main file of the project. It will call all the other files to make the robot move.
 from reachy_sdk import ReachySDK
 import numpy as np
-from coordinate_transposition import coordinate_transposition_xy
-from inverse_kinematic import inverse_kinematic_v2
+from coordinate_transposition import coordinate_transposition_r_arm, coordinate_transposition_l_arm
+from inverse_kinematic import inverse_kinematic_v2_r_arm, inverse_kinematic_v2_l_arm
 from pose_detection import pose_recognition
 
 reachy = ReachySDK(host='localhost')
@@ -29,67 +29,23 @@ left_elbow = 13
 left_wrist = 15
 
 #####################
-
+old_movement_r_arm = [0, 0, 0, 0, 0, 0, 0]
+old_movement_l_arm = [0, 0, 0, 0, 0, 0, 0]
+#####################
+# distance_right_wrist_shoulder_center = []
+# distance_left_wrist_shoulder_center = []
+#####################
 reachy.turn_on('r_arm')
+reachy.turn_on('l_arm')
+#####################
 
 print("Start the camera")
 # camera_capture()
 print("Camera is done")
 # time.sleep(2)
 print("Start the arm recognition")
-# arm_recognition()
 pose_recognition(duration)
 print("Arm recognition is done")
-# time.sleep(2)
-# print("Start the angle calculation")
-# for i in range(0, 10):
-#
-#     with open(path_txt + 'right_elbow_angle.txt', 'a') as f:
-#         f.write(str(angle_right_elbow(i)) + '\n')
-#
-#     # with open(path_txt + 'right_arm_yam_angle.txt', 'a') as f:
-#     #     f.write(str(angle_right_arm_yam(i)) + '\n')
-#
-#     with open(path_txt + 'right_shoulder_pitch_angle.txt', 'a') as f:
-#         f.write(str(angle_right_shoulder_pitch(i)) + '\n')
-#
-# print("Angle calculation is done")
-# time.sleep(2)
-#
-# # print("Start the z coordinate calculation")
-# # # Get z of the wrist
-# # get_z()
-# # print("Z coordinate calculation is done")
-#
-# right_wrist_not_centered = np.loadtxt(path_txt + 'right_wrist_coords.txt', delimiter=',')
-# shoulder_coords_not_centered = np.loadtxt(path_txt + 'right_shoulder_coords.txt', delimiter=',')
-# elbow_coords_not_centered = np.loadtxt(path_txt + 'right_elbow_coords.txt', delimiter=',')
-#
-#
-# print("Start the coordinate transposition")
-# # Transform the coordinates to be used by the robot
-# coordinate_transposition_xy(right_wrist_not_centered, 'wrist_coords_centered')
-# coordinate_transposition_xy(shoulder_coords_not_centered,'shoulder_not_centered')
-# coordinate_transposition_xy(elbow_coords_not_centered, 'elbow_coords_not_centered')
-# print("Coordinate transposition is done")
-#
-# wrist_coords = np.loadtxt(path_txt + 'wrist_coords_centered.txt', delimiter=',')
-# shoulder_coords = np.loadtxt(path_txt + 'shoulder_not_centered.txt', delimiter=',')
-# elbow_coords = np.loadtxt(path_txt + 'elbow_coords_not_centered.txt', delimiter=',')
-#
-# print("Coeff px to cm: ", coeff_px_to_cm)
-#
-# # print(right_wrist_z * coeff_px_to_cm)
-# print("Right wrist")
-# print('Wrist: ', wrist_coords * coeff_px_to_cm, '\nShoulder: ', shoulder_coords * coeff_px_to_cm, '\nElbow: ', elbow_coords * coeff_px_to_cm)
-#
-# print("Start the inverse kinematic")
-# # Inverse Kinematic
-# inverse_kinematic(gamma, beta, alpha, shoulder_coords, elbow_coords, wrist_coords)
-# print("Inverse kinematic is done")
-#
-
-
 
 print("Start transposition")
 for i in range(0, duration):
@@ -98,30 +54,45 @@ for i in range(0, duration):
 
     #####################
     # Transposition to the center of the robot
-    distance_right_wrist_shoulder_center = coordinate_transposition_xy(data)
+    distance_right_wrist_shoulder_center = coordinate_transposition_r_arm(data)
+    distance_left_wrist_shoulder_center = coordinate_transposition_l_arm(data)
     #####################
 
-# print(distance_right_wrist_shoulder_center[1][0])
+
+    # print(distance_right_wrist_shoulder_center)
+    # print(distance_left_wrist_shoulder_center)
 print("Transposition is done")
 # time.sleep(2)
 print("Start the inverse kinematic")
 
-old_movement = [0, 0, 0, 0, 0, 0, 0]
-
+# Inverse Kinematic of the right arm
 for i in range(0, duration):
     # Right wrist
-    x = distance_right_wrist_shoulder_center[i][0]
-    y = distance_right_wrist_shoulder_center[i][1]
-    z = distance_right_wrist_shoulder_center[i][2]
+    x_r_arm = distance_right_wrist_shoulder_center[i][0]
+    y_r_arm = distance_right_wrist_shoulder_center[i][1]
+    z_r_arm = distance_right_wrist_shoulder_center[i][2]
 
-    print("X: ", z, "Y: ", -x, "Z: ", y) # z, x, y
+    # print("X_r_arm: ", z_r_arm, "Y_r_arm: ", -x_r_arm, "Z_r_arm: ", y_r_arm) # z, x, y
 
     # right arm
-    old_movement = inverse_kinematic_v2(gamma, beta, alpha, z, -x, y, old_movement) # z, x, y
+    old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, -x_r_arm, y_r_arm, old_movement_r_arm) # z, x, y
 
-# TODO: add the left arm
-# TODO: add the condition to move the arm
-# TODO: resolve pb with the elbow
+# Inverse Kinematic of the left arm
+for i in range(0, duration):
+    # Left wrist
+    x_l_arm = distance_right_wrist_shoulder_center[i][0]
+    y_l_arm = distance_right_wrist_shoulder_center[i][1]
+    z_l_arm = distance_right_wrist_shoulder_center[i][2]
+
+    # print("X_l_arm: ", z_l_arm, "Y_l_arm: ", x_l_arm, "Z_l_arm: ", y_l_arm) # z, x, y
+
+    # left arm
+    old_movement_l_arm = inverse_kinematic_v2_l_arm(gamma, beta, alpha, z_l_arm, x_l_arm, y_l_arm, old_movement_l_arm) # z, x, y
+
 print("Inverse kinematic is done")
 
 reachy.turn_off_smoothly('r_arm')
+reachy.turn_off_smoothly('l_arm')
+
+# TODO: add the condition to move the arm
+# TODO: resolve pb with the elbow

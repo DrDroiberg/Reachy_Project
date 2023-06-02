@@ -18,7 +18,7 @@ reachy = ReachySDK(host='localhost')
 #         time.sleep(0.5)
 #         goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), final_position)}, duration=1.0)
 
-def inverse_kinematic_v2(gamma, beta, alpha, x, y, z, old_movement):
+def inverse_kinematic_v2_r_arm(gamma, beta, alpha, x, y, z, old_movement):
 
     movement = Full_matrice_Rota(gamma, beta, alpha, x, y, z)
 
@@ -26,5 +26,17 @@ def inverse_kinematic_v2(gamma, beta, alpha, x, y, z, old_movement):
 
     time.sleep(0.5)
     goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), final_position)}, duration=1.0)
+
+    return final_position
+
+
+def inverse_kinematic_v2_l_arm(gamma, beta, alpha, x, y, z, old_movement):
+
+    movement = Full_matrice_Rota(gamma, beta, alpha, x, y, z)
+
+    final_position = reachy.l_arm.inverse_kinematics(movement, q0=old_movement)
+
+    time.sleep(0.5)
+    goto({joint: pos for joint, pos in zip(reachy.l_arm.joints.values(), final_position)}, duration=1.0)
 
     return final_position

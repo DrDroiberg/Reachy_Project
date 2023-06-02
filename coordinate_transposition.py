@@ -28,8 +28,10 @@ distance_right_wrist_shoulder_center_x = []
 distance_right_wrist_shoulder_center_y = []
 distance_right_wrist_shoulder_center_z = []
 
+distance_left_wrist_shoulder_center = []
 
-def coordinate_transposition_xy(data):
+
+def coordinate_transposition_r_arm(data):
     # Transform the coordinates to be used by the robot
     # Center of shoulders in cm
     # x = data[0][right_shoulder] + (data[0][left_shoulder] - data[0][right_shoulder]) / 2
@@ -63,3 +65,39 @@ def coordinate_transposition_xy(data):
                distance_right_wrist_shoulder_center, delimiter=',')
 
     return distance_right_wrist_shoulder_center
+
+
+def coordinate_transposition_l_arm(data):
+    # Transform the coordinates to be used by the robot
+    # Center of shoulders in cm
+    # x = data[0][right_shoulder] + (data[0][left_shoulder] - data[0][right_shoulder]) / 2
+    # y = min(data[1][right_shoulder], data[1][left_shoulder]) + (
+    #             abs(data[1][right_shoulder] - data[1][left_shoulder]) / 2)
+    # z = data[2][right_shoulder]
+
+    # print the soulder coordinates
+    # print("right_shoulder : ", data[0][right_shoulder], " ", data[1][right_shoulder], " ", data[2][right_shoulder])
+    # print("left_shoulder : ", data[0][left_shoulder], " ", data[1][left_shoulder], " ", data[2][left_shoulder])
+
+    x = (data[0][right_shoulder] + data[0][left_shoulder]) / 2
+    y = (data[1][right_shoulder] + data[1][left_shoulder]) / 2
+    z = (data[2][right_shoulder] + data[2][left_shoulder]) / 2
+
+    # Print the center of the shoulders
+    # print("center of the shoulders : ", x, " ", y, " ", z)
+
+    # Distance between the right wrist and the center of the shoulders in cm
+    distance_left_wrist_shoulder_center_x = x - data[0][left_wrist]
+
+    distance_left_wrist_shoulder_center_y = y - data[1][left_wrist]
+
+    distance_left_wrist_shoulder_center_z = z - data[2][left_wrist]
+
+    distance_left_wrist_shoulder_center.append([distance_left_wrist_shoulder_center_x,
+                                                 distance_left_wrist_shoulder_center_y,
+                                                 distance_left_wrist_shoulder_center_z])
+
+    np.savetxt(path_txt + 'distance_left_wrist_shoulder_center.txt',
+               distance_left_wrist_shoulder_center, delimiter=',')
+
+    return distance_left_wrist_shoulder_center
