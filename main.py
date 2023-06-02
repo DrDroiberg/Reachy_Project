@@ -79,26 +79,24 @@ for i in range(0, duration):
     if z_r_arm < 0:
         print("x_negative: ", z_r_arm)
         z_r_arm = 0
-    # if x_r_arm > 0:
-    #     print("y_negative: ", x_r_arm)
-    #     x_r_arm = -x_r_arm
+    if x_r_arm < 0:
+        print("y_negative: ", x_r_arm)
+        x_r_arm = 0
     if y_r_arm < -0.30:
         print("z_negative: ", y_r_arm)
         y_r_arm = -0.30
 
-    # Position of the elbow and wrist
-    # Get position of the elbow
-    elbow_position = data[2][right_elbow]
-    wrist_position = data[2][right_wrist]
+    # If the wrist is behind the elbow then the wrist is the elbow position
+    elbow_position = np.loadtxt('listes/distance_right_elbow_shoulder_center.txt', delimiter=',')
+    if z_r_arm < elbow_position[i][2]:
+        z_r_arm = elbow_position[i][2]
 
-    if elbow_position > wrist_position:
-        print("elbow_position: ", elbow_position, "wrist_position: ", wrist_position)
-        z_r_arm = elbow_position
+
     # End of the condition
 
     # right arm
     old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, -x_r_arm, y_r_arm, old_movement_r_arm) # z, x, y
-    print("Right arm is done")
+print("Right arm is done")
 
 
 # Inverse Kinematic of the left arm
@@ -108,34 +106,32 @@ for i in range(0, duration):
     y_l_arm = distance_left_wrist_shoulder_center[i][1]
     z_l_arm = distance_left_wrist_shoulder_center[i][2]
 
-    # print("X_l_arm: ", z_l_arm, "Y_l_arm: ", x_l_arm, "Z_l_arm: ", y_l_arm) # z, x, y
+    # print("X_l_arm: ", z_l_arm, "Y_l_arm: ", -x_l_arm, "Z_l_arm: ", y_l_arm) # z, x, y
 
     # Condition to move the arm
     # Position of the wrist
     if z_l_arm < 0:
         print("x_negative: ", z_l_arm)
         z_l_arm = 0
-    if x_l_arm < 0:
-        print("y_negative: ", x_l_arm)
+    if -x_l_arm < 0:
+        print("y_negative: ", -x_l_arm)
         x_l_arm = 0
     if y_l_arm < -0.30:
         print("z_negative: ", y_l_arm)
         y_l_arm = -0.30
 
-    # Position of the elbow and wrist
-    # Get position of the elbow
-    elbow_position = data[2][left_elbow]
-    wrist_position = data[2][left_wrist]
+    # If the wrist is behind the elbow then the wrist is the elbow position
+    elbow_position = np.loadtxt('listes/distance_left_elbow_shoulder_center.txt', delimiter=',')
+    if z_l_arm < elbow_position[i][2]:
+        z_l_arm = elbow_position[i][2]
 
-    if elbow_position > wrist_position:
-        print("elbow_position: ", elbow_position, "wrist_position: ", wrist_position)
-        z_l_arm = elbow_position
+
     # End of the condition
 
 
     # left arm
-    old_movement_l_arm = inverse_kinematic_v2_l_arm(gamma, beta, alpha, z_l_arm, x_l_arm, y_l_arm, old_movement_l_arm) # z, x, y
-    print("Left arm is done")
+    old_movement_l_arm = inverse_kinematic_v2_l_arm(gamma, beta, alpha, z_l_arm, -x_l_arm, y_l_arm, old_movement_l_arm) # z, x, y
+print("Left arm is done")
 
 print("Inverse kinematic is done")
 
@@ -143,4 +139,4 @@ reachy.turn_off_smoothly('r_arm')
 reachy.turn_off_smoothly('l_arm')
 
 # TODO: add the left arm
-# TODO: resolve pb with the elbow, pretty solved but not perfect
+# TODO: resolve pb with the elbow
