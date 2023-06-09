@@ -1,5 +1,6 @@
 import time
-
+import random
+import numpy as np
 from reachy_sdk import ReachySDK
 from reachy_sdk.trajectory import goto
 from Prog_cinematic_movement import Full_matrice_Rota
@@ -38,5 +39,24 @@ def inverse_kinematic_v2_l_arm(gamma, beta, alpha, x, y, z, old_movement):
 
     time.sleep(0.5)
     goto({joint: pos for joint, pos in zip(reachy.l_arm.joints.values(), final_position)}, duration=1.0)
+
+    return final_position
+
+
+def inverse_kinematic_v3_r_arm(gamma, beta, alpha, x, y, z, old_movement):
+
+    # global final_position
+    # gamma = random.randint(-90, 90)
+    # beta = random.randint(-90, 90)
+    # alpha = random.randint(-90, 90)
+
+    movement = Full_matrice_Rota(gamma, beta, alpha, x, y, z)
+
+    final_position = reachy.r_arm.inverse_kinematics(movement, q0=old_movement)
+
+    # while(x < right_elbow_position):
+    #     print("check")
+    #     movement = Full_matrice_Rota(gamma, beta, alpha, x, y, z)
+    #     final_position = reachy.r_arm.inverse_kinematics(movement, q0=old_movement)
 
     return final_position
