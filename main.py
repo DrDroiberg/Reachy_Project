@@ -4,6 +4,7 @@ import random
 from reachy_sdk import ReachySDK
 import numpy as np
 from coordinate_transposition import coordinate_transposition_r_arm, coordinate_transposition_l_arm, coordinate_transpo_elbow
+from coords_transfo import coordinate_transpo_r_wrist
 from inverse_kinematic import inverse_kinematic_v2_r_arm, inverse_kinematic_v2_l_arm, inverse_kinematic_v3_r_arm
 from pose_detection import pose_recognition
 from Prog_cinematic_movement import Full_matrice_Rota
@@ -63,8 +64,8 @@ for i in range(0, duration):
 
     #####################
     # Transposition to the center of the robot
-    distance_right_wrist_shoulder_center = coordinate_transposition_r_arm(data)
-    distance_left_wrist_shoulder_center = coordinate_transposition_l_arm(data)
+    distance_right_wrist_shoulder_center = coordinate_transpo_r_wrist(data)
+    distance_left_wrist_shoulder_center = coordinate_transpo_r_wrist(data)
 
     #####################
     # List of the right elbow position
@@ -84,22 +85,24 @@ for i in range(0, duration):
     # Right wrist
     x_r_arm = distance_right_wrist_shoulder_center[i][0]
     y_r_arm = distance_right_wrist_shoulder_center[i][1]
-    z_r_arm = 0
-#     z_r_arm = distance_right_wrist_shoulder_center[i][2]
+    # z_r_arm = 0
+    z_r_arm = distance_right_wrist_shoulder_center[i][2]
 #
 #     # print("X_r_arm: ", z_r_arm, "Y_r_arm: ", -x_r_arm, "Z_r_arm: ", y_r_arm) # z, x, y
 #
     # Condition to move the arm
     # Position of the wrist
-    # if z_r_arm < 0:
-    #     print("x_negative: ", z_r_arm)
-    #     z_r_arm = -z_r_arm
+    if z_r_arm < 0:
+        print("x_negative: ", z_r_arm)
+        z_r_arm = 0
     if x_r_arm > 0:
         print("y_negative: ", x_r_arm)
         x_r_arm = 0
     if -y_r_arm < -0.30:
         print("z_negative: ", y_r_arm)
-        y_r_arm = -0.30
+        y_r_arm = 0.30
+
+    print("x_r_arm: ", x_r_arm, "image: ", i)
 
     old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, x_r_arm, -y_r_arm, old_movement_r_arm)
 

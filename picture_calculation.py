@@ -4,6 +4,9 @@ def offset_distance(x1, y1, x2, y2):
     dist = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
     return dist
 
+def offset_3Ddistance(x1, x2, y1, y2, z1, z2):
+    dist = ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
+    return dist
 
 def findAngle(x1, y1, x2, y2, x3, y3):
     # Caculate the angle between the left shoulder and the left elbow using the cosine rule
