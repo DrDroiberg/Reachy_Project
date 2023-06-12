@@ -14,6 +14,7 @@ reachy = ReachySDK(host='localhost')
 #alpha = rotation sur l'axe z
 #xyz, position de la main dans l'espace avec comme référence le centre du robot
 def Full_matrice_Rota(gama,beta,alpha,x,y,z):
+    # print("x : ", x, " y : ", y, " z : ", z)
     full_matrix = np.array([[cos(alpha) * cos(beta), (cos(alpha) * sin(beta) * sin(gama)) - (sin(alpha) * cos(gama)), (cos(alpha) * sin(beta) * cos(gama)) + (sin(alpha) * sin(gama)),x],[sin(alpha) * cos(beta), (sin(alpha) * sin(beta) * sin(gama)) + (cos(alpha) * cos(gama)), (sin(alpha) * sin(beta) * cos(gama)) - (cos(alpha) * sin(gama)),y],[ -sin(beta), cos(beta) * sin(gama), cos(beta) * cos(gama) ,z],[0,0,0,1]])
     return full_matrix
 

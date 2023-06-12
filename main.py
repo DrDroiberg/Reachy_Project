@@ -4,7 +4,7 @@ import random
 from reachy_sdk import ReachySDK
 import numpy as np
 from coordinate_transposition import coordinate_transposition_r_arm, coordinate_transposition_l_arm, coordinate_transpo_elbow
-from coords_transfo import coordinate_transpo_r_wrist
+from coords_transfo import coordinate_transpo_r_wrist, coordinate_transpo_l_wrist
 from inverse_kinematic import inverse_kinematic_v2_r_arm, inverse_kinematic_v2_l_arm, inverse_kinematic_v3_r_arm
 from pose_detection import pose_recognition
 from Prog_cinematic_movement import Full_matrice_Rota
@@ -20,7 +20,7 @@ path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/data_list'
 gamma = 0
 beta = 0
 alpha = 0
-duration = 50
+duration = 23
 
 #####################
 # Defining the landmarks
@@ -58,14 +58,14 @@ pose_recognition(duration)
 print("Arm recognition is done")
 
 print("Start transposition")
-for i in range(0, duration):
+for i in range(22, duration):
     data = np.loadtxt('C:/Users/vince/PycharmProjects/Reachy_Project/data_list/data_rlworld_img_' + str(i) + '.txt'
                       , delimiter=',')
 
     #####################
     # Transposition to the center of the robot
     distance_right_wrist_shoulder_center = coordinate_transpo_r_wrist(data)
-    distance_left_wrist_shoulder_center = coordinate_transpo_r_wrist(data)
+    distance_left_wrist_shoulder_center = coordinate_transpo_l_wrist(data)
 
     #####################
     # List of the right elbow position
@@ -81,7 +81,7 @@ print("Start the inverse kinematic")
 # kinematic_right_arm(gamma, beta, alpha)
 # kinematic_left_arm(gamma, beta, alpha)
 
-for i in range(0, duration):
+for i in range(22, duration):
     # Right wrist
     x_r_arm = distance_right_wrist_shoulder_center[i][0]
     y_r_arm = distance_right_wrist_shoulder_center[i][1]
@@ -104,19 +104,20 @@ for i in range(0, duration):
 
     print("x_r_arm: ", x_r_arm, "image: ", i)
 
-    old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, x_r_arm, -y_r_arm, old_movement_r_arm)
+    old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, x_r_arm, y_r_arm, z_r_arm, old_movement_r_arm)
 
 for i in range(0, duration):
     # Left wrist
     x_l_arm = distance_left_wrist_shoulder_center[i][0]
     y_l_arm = distance_left_wrist_shoulder_center[i][1]
-    z_l_arm = 0
+    z_l_arm = distance_left_wrist_shoulder_center[i][2]
+    # z_l_arm = 0
 
     # Condition to move the arm
     # Position of the wrist
-    # if z_l_arm < 0:
-    #     print("x_negative: ", z_l_arm)
-    #     z_l_arm = -z_l_arm
+    if z_l_arm < 0:
+        print("x_negative: ", z_l_arm)
+        z_l_arm = -z_l_arm
     if x_l_arm < 0:
         print("y_negative: ", x_l_arm)
         # x_l_arm = 0
@@ -183,8 +184,8 @@ for i in range(0, duration):
 #
 # print("Inverse kinematic is done")
 #
-reachy.turn_off_smoothly('r_arm')
-reachy.turn_off_smoothly('l_arm')
+# reachy.turn_off_smoothly('r_arm')
+# reachy.turn_off_smoothly('l_arm')
 #
 # # TODO: resolve pb with the elbow
 # # TODO: add the left arm
