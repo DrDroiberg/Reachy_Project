@@ -10,6 +10,7 @@ import os
 
 reachy = ReachySDK(host='localhost') # 10.117.68.17
 
+
 #####################
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 path_txt = os.path.join(ROOT_DIR, "data_list")

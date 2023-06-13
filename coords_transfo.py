@@ -2,6 +2,7 @@ import numpy as np
 from picture_calculation import offset_3Ddistance
 import os
 
+
 right_shoulder = 12
 left_shoulder = 11
 

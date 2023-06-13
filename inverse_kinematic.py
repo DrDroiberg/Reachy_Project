@@ -1,6 +1,4 @@
 import time
-import random
-import numpy as np
 from reachy_sdk import ReachySDK
 from reachy_sdk.trajectory import goto
 from Prog_cinematic_movement import Full_matrice_Rota
