@@ -1,16 +1,5 @@
 import cv2 as cv
 import mediapipe as mp
-# import urllib.request
-# import numpy as np
-# import pickle
-# import matplotlib as mpl
-# from matplotlib import animation
-# import PyQt5
-# from PIL import Image
-# from IPython.display import Video
-# import nb_helpers
-# import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import os
 
@@ -23,9 +12,11 @@ mp_face_mesh = mp.solutions.face_mesh
 ########################################################################################################################
 # Read the image file
 path = 'C:/Users/vince/PycharmProjects/Reachy_Project/recognised_images'
-path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/data_list'
 folder = 'camera_opencv'
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+path_images = os.path.join(ROOT_DIR, "recognised_images")
+path_txt = os.path.join(ROOT_DIR, "data_list")
 
 def pose_recognition(duration):
     for i in range(0, duration):
@@ -59,7 +50,7 @@ def pose_recognition(duration):
             data_rlworld[1, k] = landmarks[k].y
             data_rlworld[2, k] = landmarks[k].z
 
-        np.savetxt(os.path.join(path_txt, 'data_rlworld_img_' + str(i) + '.txt'), data_rlworld, delimiter=',',
+        np.savetxt(os.path.join(path_txt, '/data_rlworld_img_' + str(i) + '.txt'), data_rlworld, delimiter=',',
                    fmt='%1.3f')  #
 
         landmarks = results.pose_landmarks.landmark
@@ -68,4 +59,4 @@ def pose_recognition(duration):
             data_xyz[1, k] = landmarks[k].y
             data_xyz[2, k] = landmarks[k].z
 
-        np.savetxt(os.path.join(path_txt, 'data_xyz_img_' + str(i) + '.txt'), data_xyz, delimiter=',', fmt='%1.3f')  #
+        np.savetxt(os.path.join(path_txt, '/data_xyz_img_' + str(i) + '.txt'), data_xyz, delimiter=',', fmt='%1.3f')  #

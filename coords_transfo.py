@@ -1,5 +1,6 @@
 import numpy as np
 from picture_calculation import offset_3Ddistance
+import os
 
 right_shoulder = 12
 left_shoulder = 11
@@ -10,8 +11,9 @@ left_wrist = 15
 right_elbow = 14
 left_elbow = 13
 
-path_txt = 'C:/Users/vince/PycharmProjects/Reachy_Project/data_list/'
-path_txt_save = 'C:/Users/vince/PycharmProjects/Reachy_Project/listes/'
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+path_txt = os.path.join(ROOT_DIR, "data_list")
+path_txt_save = os.path.join(ROOT_DIR, "listes")
 
 global x, y, z
 
@@ -22,14 +24,14 @@ lenght_arm = 0.5625
 distance_right_wrist_shoulder_center = []
 distance_left_wrist_shoulder_center = []
 
-def coeff(data_rl):
+def coeff(data_rl, wrist):
 
     x = (data_rl[0][right_shoulder] + data_rl[0][left_shoulder]) / 2
     y = (data_rl[1][right_shoulder] + data_rl[1][left_shoulder]) / 2
     z = (data_rl[2][right_shoulder] + data_rl[2][left_shoulder]) / 2
 
-    lenght_rl_arm = offset_3Ddistance(x, data_rl[0][right_wrist], y,
-                                      data_rl[1][right_wrist], z, data_rl[2][right_wrist])
+    lenght_rl_arm = offset_3Ddistance(x, data_rl[0][wrist], y,
+                                      data_rl[1][wrist], z, data_rl[2][wrist])
                     # + offset_3Ddistance(data_rl[0][right_elbow], data_rl[0][right_wrist], data_rl[1][right_elbow],
                     #                     data_rl[1][right_wrist], data_rl[2][right_elbow], data_rl[2][right_wrist])
 
@@ -39,8 +41,8 @@ def coeff(data_rl):
 
 def coordinate_transpo_r_wrist(data):
 
-    data_rl = np.loadtxt(path_txt + 'data_rlworld_img_0.txt', delimiter=',')
-    coeff_transfo = coeff(data_rl)
+    data_rl = np.loadtxt(path_txt + '/data_rlworld_img_0.txt', delimiter=',')
+    coeff_transfo = coeff(data_rl, right_wrist)
 
     # Transform the coordinates to be used by the robot
     # Center of shoulders in cm
@@ -63,14 +65,14 @@ def coordinate_transpo_r_wrist(data):
 
     # print("distance_right_wrist_shoulder_center : ", distance_right_wrist_shoulder_center)
 
-    np.savetxt(path_txt_save + 'data_rworld_right.txt', distance_right_wrist_shoulder_center, delimiter=',')
+    np.savetxt(path_txt_save + '/data_rworld_right.txt', distance_right_wrist_shoulder_center, delimiter=',')
 
     return distance_right_wrist_shoulder_center
 
 def coordinate_transpo_l_wrist(data):
 
-    data_rl = np.loadtxt(path_txt + 'data_rlworld_img_0.txt', delimiter=',')
-    coeff_transfo = coeff(data_rl)
+    data_rl = np.loadtxt(path_txt + '/data_rlworld_img_0.txt', delimiter=',')
+    coeff_transfo = coeff(data_rl, left_wrist)
 
     # Transform the coordinates to be used by the robot
     # Center of shoulders in cm
@@ -91,7 +93,7 @@ def coordinate_transpo_l_wrist(data):
 
     # print("distance_right_wrist_shoulder_center : ", distance_right_wrist_shoulder_center)
 
-    np.savetxt(path_txt_save + 'data_rworld_left.txt', distance_right_wrist_shoulder_center, delimiter=',')
+    np.savetxt(path_txt_save + '/data_rworld_left.txt', distance_right_wrist_shoulder_center, delimiter=',')
 
     return distance_left_wrist_shoulder_center
 
