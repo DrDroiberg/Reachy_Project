@@ -2,7 +2,7 @@ from reachy_sdk import ReachySDK
 import numpy as np
 from math import cos, sin
 
-reachy = ReachySDK(host='localhost')
+# reachy = ReachySDK(host='10.117.68.17')
 
 
 # reachy.turn_on('r_arm')

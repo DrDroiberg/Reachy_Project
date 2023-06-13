@@ -51,7 +51,7 @@ def pose_recognition(duration):
             data_rlworld[1, k] = landmarks[k].y
             data_rlworld[2, k] = landmarks[k].z
 
-        np.savetxt(os.path.join(path_txt, '/data_rlworld_img_' + str(i) + '.txt'), data_rlworld, delimiter=',',
+        np.savetxt(os.path.join(path_txt, 'data_rlworld_img_' + str(i) + '.txt'), data_rlworld, delimiter=',',
                    fmt='%1.3f')  #
 
         landmarks = results.pose_landmarks.landmark
@@ -60,4 +60,4 @@ def pose_recognition(duration):
             data_xyz[1, k] = landmarks[k].y
             data_xyz[2, k] = landmarks[k].z
 
-        np.savetxt(os.path.join(path_txt, '/data_xyz_img_' + str(i) + '.txt'), data_xyz, delimiter=',', fmt='%1.3f')  #
+        np.savetxt(os.path.join(path_txt, 'data_xyz_img_' + str(i) + '.txt'), data_xyz, delimiter=',', fmt='%1.3f')  #

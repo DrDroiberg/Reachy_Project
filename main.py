@@ -12,9 +12,11 @@ reachy = ReachySDK(host='localhost') # 10.117.68.17
 
 
 #####################
+# Path of the data
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 path_txt = os.path.join(ROOT_DIR, "data_list")
 #####################
+# Variables of the inverse kinematic
 gamma = 0
 beta = 0
 alpha = 0
@@ -38,12 +40,10 @@ old_movement_r_arm = [0, 0, 0, -90, 0, 0, 0]
 old_movement_l_arm = [0, 0, 0, -90, 0, 0, 0]
 start_position = [0, 0, 0, -90, 0, 0, 0]
 #####################
-# distance_right_wrist_shoulder_center = []
-# distance_left_wrist_shoulder_center = []
-#####################
 reachy.turn_on('r_arm')
 reachy.turn_on('l_arm')
 #####################
+# start position
 goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), start_position)}, duration=2.0)
 goto({joint: pos for joint, pos in zip(reachy.l_arm.joints.values(), start_position)}, duration=2.0)
 #####################
@@ -65,14 +65,8 @@ for i in range(0, nb_images):
     # Transposition to the center of the robot
     distance_right_wrist_shoulder_center = coordinate_transpo_r_wrist(data)
     distance_left_wrist_shoulder_center = coordinate_transpo_l_wrist(data)
-
-    #####################
-    # List of the right elbow position
-    # right_elbow_position = coordinate_transpo_elbow(data)
     #####################
 print("Transposition is done")
-# print("Right elbow position: ", right_elbow_position)
-# time.sleep(2)
 print("Start the inverse kinematic")
 
 for i in range(0, nb_images):
@@ -95,9 +89,11 @@ for i in range(0, nb_images):
         print("z_negative: ", y_r_arm)
         y_r_arm = 0.30
 
-    print("x_r_arm: ", x_r_arm, "image: ", i)
+    print("image: ", i)
 
     old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, x_r_arm, -y_r_arm, old_movement_r_arm)
+    # np.savetxt(path_txt + '/right_arm_position'+str(i)+'.txt', old_movement_r_arm, delimiter=',')
+
 # Left arm, not working
 
 for i in range(0, nb_images):
@@ -122,68 +118,12 @@ for i in range(0, nb_images):
     print("z_r_arm: ", -y_r_arm, "image: ", i)
 
     old_movement_l_arm = inverse_kinematic_v2_l_arm(gamma, beta, alpha, z_l_arm, x_l_arm, -y_l_arm, old_movement_l_arm)
+    # np.savetxt(path_txt + '/right_arm_position'+str(i)+'.txt', old_movement_l_arm, delimiter=',')
 
-print('bloup')
+
+# return to the start position
 goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), start_position)}, duration=6)
 goto({joint: pos for joint, pos in zip(reachy.l_arm.joints.values(), start_position)}, duration=6)
 
-
-#
-#     # print("z_r_arm: ", z_r_arm, "right_elbow_position: ", right_elbow_position[i])
-#
-#     # right_elbow_present_position = right_elbow_position[i]
-#     # if(z_r_arm < right_elbow_present_position):
-#     #     print("check")
-#     #     old_movement_r_arm = inverse_kinematic_v3_r_arm(gamma, beta, alpha, z_r_arm, -x_r_arm, y_r_arm, [random.random() * 100, random.random() * 100, random.random() * 100, random.random() * 100, random.random() * 100, random.random() * 100, random.random() * 100])
-#
-#     # print("Shoulder pitch", reachy.r_arm.r_shoulder_pitch.present_position)
-#     # print("Wrist position", data[0][right_wrist])
-#
-#     # time.sleep(0.5)
-#     # goto({joint: pos for joint, pos in zip(reachy.r_arm.joints.values(), old_movement_r_arm)}, duration=1.0)
-#
-#     # End of the condition
-#
-#     # right arm
-#     # old_movement_r_arm = inverse_kinematic_v2_r_arm(gamma, beta, alpha, z_r_arm, -x_r_arm, y_r_arm, old_movement_r_arm) # z, x, y
-# print("Right arm is done")
-#
-#
-# # Inverse Kinematic of the left arm
-# for i in range(0, duration):
-#     # Left wrist
-#     x_l_arm = distance_left_wrist_shoulder_center[i][0]
-#     y_l_arm = distance_left_wrist_shoulder_center[i][1]
-#     z_l_arm = distance_left_wrist_shoulder_center[i][2]
-#
-#     # print("X_l_arm: ", z_l_arm, "Y_l_arm: ", -x_l_arm, "Z_l_arm: ", y_l_arm) # z, x, y
-#
-#     # Condition to move the arm
-#     # Position of the wrist
-#     if z_l_arm < 0:
-#         print("x_negative: ", z_l_arm)
-#         z_l_arm = 0
-#     if -x_l_arm < 0:
-#         print("y_negative: ", -x_l_arm)
-#         x_l_arm = 0
-#     if y_l_arm < -0.30:
-#         print("z_negative: ", y_l_arm)
-#         y_l_arm = -0.30
-#
-#     # If the wrist is behind the elbow then the wrist is the elbow position
-#     elbow_position = np.loadtxt('listes/distance_left_elbow_shoulder_center.txt', delimiter=',')
-#     if z_l_arm < elbow_position[i][2]:
-#         z_l_arm = elbow_position[i][2]
-#
-#
-#     # End of the condition
-#
-#
-#     # left arm
-#     old_movement_l_arm = inverse_kinematic_v2_l_arm(gamma, beta, alpha, z_l_arm, -x_l_arm, y_l_arm, old_movement_l_arm) # z, x, y
-# print("Left arm is done")
-#
-# print("Inverse kinematic is done")
-#
 reachy.turn_off_smoothly('r_arm')
 reachy.turn_off_smoothly('l_arm')

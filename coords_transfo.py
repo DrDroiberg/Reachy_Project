@@ -57,8 +57,8 @@ def coordinate_transpo_r_wrist(data):
     distance_right_wrist_shoulder_center_y = (data[1][right_wrist] - y) * coeff_transfo
     distance_right_wrist_shoulder_center_z = (data[2][right_wrist] - z) * coeff_transfo
 
-    print("distance_right_wrist_shoulder_center_x : ", distance_right_wrist_shoulder_center_x)
-    print("data[0][right_wrist] - x : ", data[0][right_wrist] - x)
+    # print("distance_right_wrist_shoulder_center_x : ", distance_right_wrist_shoulder_center_x)
+    # print("data[0][right_wrist] - x : ", data[0][right_wrist] - x)
 
     distance_right_wrist_shoulder_center.append([distance_right_wrist_shoulder_center_x,
                                                  distance_right_wrist_shoulder_center_y,
