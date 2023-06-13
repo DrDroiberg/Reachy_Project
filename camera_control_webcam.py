@@ -1,4 +1,3 @@
-#commenter
 import cv2
 import os
 
