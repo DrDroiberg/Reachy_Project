@@ -13,6 +13,8 @@ Ensuite on utilise la cinématique inverse grâce aux coordonées pour pouvoir d
 ### Déjà réalisé:
 - Capture d'images par le robot ou une caméra externe
 - Récupération de la pose de la personne
+  - Grâce à *mediapipe*
+  - Calcul de la longueur des bras sur l'image
 - Contrôle du robot avec des coordonnées calculées à partir des images
 ### Problèmes restants
 Sur la simulation et le robot: 
