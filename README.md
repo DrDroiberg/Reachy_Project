@@ -10,12 +10,16 @@ Pour cela, nous avons décidé d'implémenter deux méthodes de récupérations 
 
 Ensuite on utilise la cinématique inverse grâce aux coordonées pour pouvoir déterminer les angles que les moteurs doivent prendre pour atteindre la dite position.
 ## Progression
-Sur la simulation et le robot:
-- Actuellement, le robot n'imite pas parfaitement les mouvements humains. 
+### Déjà réalisé:
+- Capture d'images par le robot ou une caméra externe
+- Récupération de la pose de la personne
+- Contrôle du robot avec des coordonnées calculées à partir des images
+### Problèmes restants
+Sur la simulation et le robot: 
 - Il y a des problèmes sur le positionnement des coudes qui ne sont pas à la bonne place.
-- Le positionnement des poignets n'est pas totalement le même que la personne.
+- Un léger décalage dans le positionnement des poignets du à une imprécision de mesure.
 
-Sur le robot:
+Sur le robot réel:
 - Le robot ne veut pas aller jusqu'au bout des mouvements et s'arrête avant.
 
 ## Installation
