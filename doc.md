@@ -1,5 +1,5 @@
 # Documentation for the project
-## main
+## Dans le main.py
 ### pose_recognition(duration)
 duration: nombre d'images de la séquence de capture
 La fonction permet d'effectuer la reconnaissance des différentes articulations de la personne. Les coordonnées des points sont stockées dans un fichier texte.
@@ -23,7 +23,7 @@ x, y et z: coordonées à atteindre par le robot, en cm
 old_movement: angles de la position N-1 qui servent de référence pour trouver les coordonées de la prochaine position
 La fonction permet de calculer la cinématique inverse ainsi que de faire le déplacement du bras à la bonne position
 
-## inverse_kinematic
+## Dans le inverse_kinematic.py
 ### Full_matrice_Rota(gama,beta,alpha,x,y,z)
 gamma, beta, alpha : variables pour la rotation du poignet autour des axes x, y et z
 x, y et z: coordonées à atteindre par le robot, en cm
