@@ -1,4 +1,4 @@
-# Documentation for the project
+# Documentation pour le projet Reachy_Project
 ## Dans le main.py
 ### pose_recognition(duration)
 duration: nombre d'images de la séquence de capture
