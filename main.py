@@ -1,8 +1,9 @@
 # Description: This file is the main file of the project. It will call all the other files to make the robot move.
 from reachy_sdk import ReachySDK
 import numpy as np
+from camera_control_webcam import camera_capture
 from coords_transfo import coordinate_transpo_r_wrist, coordinate_transpo_l_wrist
-from inverse_kinematic import inverse_kinematic_v2_r_arm, inverse_kinematic_v2_l_arm, inverse_kinematic_v3_r_arm
+from inverse_kinematic import inverse_kinematic_v2_r_arm, inverse_kinematic_v2_l_arm
 from pose_detection import pose_recognition
 import time
 from reachy_sdk.trajectory import goto
@@ -21,7 +22,8 @@ gamma = 0
 beta = 0
 alpha = 0
 #####################
-nb_images = 15
+# Number of images to treat
+nb_images = 50
 #####################
 # Defining the landmarks
 # Right
@@ -49,9 +51,8 @@ goto({joint: pos for joint, pos in zip(reachy.l_arm.joints.values(), start_posit
 #####################
 time.sleep(5)
 print("Start the camera")
-# camera_capture()
+camera_capture()
 print("Camera is done")
-# time.sleep(2)
 print("Start the arm recognition")
 pose_recognition(nb_images)
 print("Arm recognition is done")
