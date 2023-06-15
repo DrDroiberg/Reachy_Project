@@ -20,7 +20,7 @@ Ensuite on utilise la cinématique inverse grâce aux coordonées pour pouvoir d
   - Maintient du coude à une certaine position pour éviter qu'il n'aille à des positions bizarres.
 ### Problèmes restants
 Sur la simulation et le robot: 
-- Il y a des problèmes sur le positionnement des coudes qui ne sont pas à la bonne place avec la méthode *Mediapipe*.
+- Il y a des problèmes sur le positionnement des coudes qui ne sont pas à la bonne place avec la première méthode.
 - Un léger décalage dans le positionnement des poignets du à une imprécision de mesure.
 
 Sur le robot réel:
