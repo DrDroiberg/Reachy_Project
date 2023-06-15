@@ -10,6 +10,7 @@ path_txt = 'C:/Users/maxbu/dossPython/liste_Reachy/liste/'
 coeff = coeff_px_to_cm()
 
 
+
 #fonction non utilisee qui devrait recuperer une information de profondeur
 def get_z():
 

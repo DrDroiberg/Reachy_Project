@@ -9,6 +9,7 @@ from math import cos,sin,radians
 #reachy = ReachySDK(host='10.117.255.255')
 
 
+
 # reachy.turn_on('r_arm')
 
 

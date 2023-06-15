@@ -6,6 +6,7 @@ sys.path.append(path.abspath('C:/Users/maxbu/Desktop/Projet_2A/progMax_3'))
 #----------
 
 
+
 import numpy as np
 from reachy_sdk.trajectory import InterpolationMode
 from math import acos , pi

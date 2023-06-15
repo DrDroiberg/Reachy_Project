@@ -5,6 +5,7 @@ import sys
 sys.path.append(path.abspath('C:/Users/maxbu/Desktop/Projet_2A/progMax_4')) #changer le path
 #----------
 
+
 import time
 from reachy_sdk import ReachySDK
 from reachy_sdk.trajectory import goto

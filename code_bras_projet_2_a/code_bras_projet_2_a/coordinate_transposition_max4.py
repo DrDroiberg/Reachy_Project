@@ -2,6 +2,7 @@
 import numpy as np
 import os
 
+
 path_txt = 'C:/Users/maxbu/dossPython/liste_Reachy/liste/'
 aficher = 0
 

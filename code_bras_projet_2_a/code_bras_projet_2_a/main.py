@@ -5,6 +5,7 @@ import sys
 sys.path.append(path.abspath('C:/Users/maxbu/Desktop/Projet_2A/progMax_4'))
 #----------
 
+
 import time
 from reachy_sdk import ReachySDK
 import numpy as np
