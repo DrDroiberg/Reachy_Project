@@ -1,0 +1,3 @@
+faire une boucle while qui check la position de notre shoulder pitch en lançant des inverse kinematic différente
+On a alors une réponse quand notre shoulder pitch est supérieur à -90
+Ou alors avec l'arm yam qui ne doit pas dépasser un certain angle
