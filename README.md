@@ -29,8 +29,11 @@ Sur le robot réel:
 ## Installation
 - Télécharger le package unity de reachy en suivant le tutoriel ici: [Create your own virtual scene for Reachy](https://pollen-robotics.github.io/reachy-2019-docs/docs/simulation/create-your-own-scene/).
 - Se connecter au robot: `localhost` ou l'IP de votre robot. *Ne pas oublier d'être sur le même réseau que ce dernier*.
-- Exécuter un des scripts `main.py` en fonction de la méthode que vous voulez utiliser.
 
+## Exécution
+- Pour utiliser la première méthode, exécuter le `main.py` de cette branche
+- Pour utiliser la seconde méthode, exécuter le `main.py` de la branche `version_longueur_bras`
+ 
 ## Annexes
 Les documentations sont disponibles ici:
 - Première méthode: [Documentation](https://github.com/DrDroiberg/Reachy_Project/blob/master/doc.md)
