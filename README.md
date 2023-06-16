@@ -28,6 +28,9 @@ Sur le robot réel:
 
 ## Installation
 - Télécharger le package unity de reachy en suivant le tutoriel ici: [Create your own virtual scene for Reachy](https://pollen-robotics.github.io/reachy-2019-docs/docs/simulation/create-your-own-scene/).
+- Pour installer la scène dans Unity.
+  - Dézipper `sceneBlender_reachy` et le mettre dans le dossier du projet Unity.
+  - Il suffit de drag n drop ensuite les éléments dans la scène Unity.
 - Se connecter au robot: `localhost` ou l'IP de votre robot. *Ne pas oublier d'être sur le même réseau que ce dernier*.
 
 ## Exécution
@@ -38,3 +41,5 @@ Sur le robot réel:
 Les documentations sont disponibles ici:
 - Première méthode: [Documentation](https://github.com/DrDroiberg/Reachy_Project/blob/master/doc.md)
 - Seconde méthode: [Documentation](https://github.com/DrDroiberg/Reachy_Project/blob/master/Documentation_Code_version_longueurs_de_bras.pdf)
+Démonstrations:
+- [Vidéo première méthode](https://youtu.be/AAhldYzYUb4)
