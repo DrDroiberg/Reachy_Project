@@ -41,5 +41,6 @@ Sur le robot réel:
 Les documentations sont disponibles ici:
 - Première méthode: [Documentation](https://github.com/DrDroiberg/Reachy_Project/blob/master/doc.md)
 - Seconde méthode: [Documentation](https://github.com/DrDroiberg/Reachy_Project/blob/master/Documentation_Code_version_longueurs_de_bras.pdf)
+
 Démonstrations:
 - [Vidéo première méthode](https://youtu.be/AAhldYzYUb4)
