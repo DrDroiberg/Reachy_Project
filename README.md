@@ -31,6 +31,7 @@ Sur le robot réel:
 - Pour installer la scène dans Unity.
   - Dézipper `sceneBlender_reachy` et le mettre dans le dossier du projet Unity.
   - Il suffit de drag n drop ensuite les éléments dans la scène Unity.
+  - Pour placer un écran avec sa caméra dessus, il faut créer un grand cube et y poser le script `NewBehavior.cs`
 - Se connecter au robot: `localhost` ou l'IP de votre robot. *Ne pas oublier d'être sur le même réseau que ce dernier*.
 
 ## Exécution
